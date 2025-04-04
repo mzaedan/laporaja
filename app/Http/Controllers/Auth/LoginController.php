@@ -31,8 +31,8 @@ class LoginController extends Controller
         //     dd('login berhasil');
         // }
 
-        if($this->authRepository->login($credentials)){
-            if(Auth::user()->hasRole('admin')){
+        if ($this->authRepository->login($credentials)) {
+            if (Auth::user()->hasRole('Admin')) {
                 return redirect()->route('admin.dashboard');
             }
         }
