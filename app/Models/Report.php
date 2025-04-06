@@ -17,7 +17,7 @@ class Report extends Model
         'description',
         'image',
         'latitude',
-        'longtitude',
+        'longitude',
         'address'
     ];
 
@@ -26,7 +26,7 @@ class Report extends Model
         return $this->belongsTo(Resident::class);
     }
 
-    public function category()
+    public function reportCategory()
     {
         return $this->belongsTo(ReportCategory::class);
     }
@@ -36,7 +36,7 @@ class Report extends Model
         return $this->hasMany(Report::class);
     }
 
-    public function status()
+    public function statuses()
     {
         return $this->hasMany(ReportStatus::class);
     }

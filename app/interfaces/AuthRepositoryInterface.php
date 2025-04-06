@@ -1,10 +1,12 @@
 <?php 
 
-namespace App\interfaces;
+namespace App\Interfaces;
 
 interface AuthRepositoryInterface
 {
     public function login(array $credentials);
+
+    public function logout();
 }
 
 

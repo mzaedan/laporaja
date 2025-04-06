@@ -47,4 +47,10 @@ use HasFactory, Notifiable, SoftDeletes, HasRoles;
             'password' => 'hashed',
         ];
     }
+
+    public function resident()
+    {
+        return $this->hasOne(Resident::class);
+    }
+
 }

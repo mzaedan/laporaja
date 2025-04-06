@@ -12,16 +12,32 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+    <li class="nav-item {{ request()->is('admin/dashboard') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+            <span>Dashboard</span>
+        </a>
     </li>
 
     <!-- Nav Item - Tables -->
-    <li class="nav-item">
-        <a class="nav-link" href="list.html">
+    <li class="nav-item {{ request()->is('admin/resident*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.resident.index') }}">
             <i class="fas fa-fw fa-table"></i>
-            <span>List</span></a>
+            <span>Data Masyarakat</span>
+        </a>
+    </li>
+
+    <li class="nav-item {{ request()->is('admin/report-category*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.report-category.index') }}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Data Kategori</span>
+        </a>
+    </li>
+
+    <li class="nav-item {{ request()->is('admin/report*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.report.index') }}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Data Laporan</span>
+        </a>
     </li>
 </ul>

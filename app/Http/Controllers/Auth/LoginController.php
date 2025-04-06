@@ -37,8 +37,17 @@ class LoginController extends Controller
             }
         }
 
+        dd("login user berhasil");
+
         return redirect()->route('login')->withErrors([
             'email' => 'Email Password Salah'
         ]);
+    }
+
+    public function logout()
+    {
+        $this->authRepository->logout();
+
+        return redirect()->route('login');
     }
 }
