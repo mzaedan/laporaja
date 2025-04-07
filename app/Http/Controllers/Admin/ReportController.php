@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreReportRequest;
+use App\Http\Requests\UpdateReportRequest;
 use App\Interfaces\ReportCategoryRepositoryInterface;
 use App\Interfaces\ReportRepositoryInterface;
 use App\Interfaces\ResidentRepositoryInterface;
@@ -73,7 +74,9 @@ class ReportController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $report = $this->reportRepository->getReportById($id);
+
+        return view('pages.admin.report.show', compact('report'));
     }
 
     /**
@@ -81,15 +84,30 @@ class ReportController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $report = $this->reportRepository->getReportById($id);
+
+        $residents = $this->residentRepository->getAllResidents();
+        $categories = $this->reportCategoryRepository->getAllReportCategories();
+
+        return view('pages.admin.report.edit', compact('report', 'residents', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateReportRequest $request, string $id)
     {
-        //
+        $data =  $request->validated();
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('assets/report/image', 'public');
+        }
+
+        $this->reportRepository->updateReport($data, $id);
+
+        Swal::toast('Data Laporan Berhasil Diupdate', 'success')->timerProgressBar();
+
+        return redirect()->route('admin.report.index');
     }
 
     /**
@@ -97,6 +115,10 @@ class ReportController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->reportRepository->deleteReport($id);
+
+        Swal::toast('Data Laporan Berhasil Dihapus', 'success')->timerProgressBar();
+
+        return redirect()->route('admin.report.index');
     }
 }

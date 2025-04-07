@@ -29,8 +29,8 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $report->code }}</td>
-                                <td>{{ $report->resident->user->name}}</td>
-                                <td>{{ $report->reportCategory->name}}</td>
+                                <td>{{ $report->resident->user->name ?? ''}}</td>
+                                <td>{{ $report->reportCategory->name ?? ''}}</td>
                                 <td>{{ $report->title }}</td>
                                 <td>
                                     <img src="{{ asset('storage/' . $report->image) }}" alt="image" width="100">

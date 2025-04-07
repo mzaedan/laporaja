@@ -15,7 +15,7 @@ class StoreReportCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'image' => 'required|file'
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
         ];
     }
 }

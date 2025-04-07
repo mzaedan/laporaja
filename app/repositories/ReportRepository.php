@@ -3,38 +3,38 @@
 namespace App\Repositories;
 
 use App\Interfaces\ReportRepositoryInterface;
-use App\Models\ReportCategory;
+use App\Models\Report;
 use App\Models\User;
 
 class ReportRepository implements ReportRepositoryInterface {
 
     public function getAllReports()
     {
-        return ReportCategory::all();
+        return Report::all();
     }
 
     public function getReportById(int $id)
     {
-        return ReportCategory::where('id', $id)->first();
+        return Report::where('id', $id)->first();
     }
 
     public function createReport(array $data)
     {
-        return ReportCategory::create($data);
+        return Report::create($data);
     }
 
     public function updateReport(array $data, int $id)
     {
-        $reportCategory = $this->getReportById($id);
+        $report = $this->getReportById($id);
         
-        return $reportCategory->update($data);
+        return $report->update($data);
     }
 
     public function deleteReport(int $id)
     {
-        $reportCategory = $this->getReportById($id);
+        $report = $this->getReportById($id);
         
-        return $reportCategory->delete();
+        return $report->delete();
     }
 }
 

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateReportCategoryRequest extends FormRequest
+class StoreReportStatusRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,8 +14,10 @@ class UpdateReportCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp'
+            'report_id' => 'required|exists:reports,id',
+            'image' => 'nullable|file',
+            'status' => 'required|string',
+            'description' => 'required|string',
         ];
     }
 }
