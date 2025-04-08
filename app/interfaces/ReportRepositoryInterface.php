@@ -7,6 +7,8 @@ interface ReportRepositoryInterface {
 
     public function getAllReports();
 
+    public function getLatestReports();
+
     public function getReportById(int $id);
 
     public function createReport(array $data);

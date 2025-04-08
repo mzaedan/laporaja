@@ -13,6 +13,11 @@ class ReportRepository implements ReportRepositoryInterface {
         return Report::all();
     }
 
+    public function getLatestReports()
+    {
+         return Report::latest()->take(5)->get();
+    }
+
     public function getReportById(int $id)
     {
         return Report::where('id', $id)->first();
