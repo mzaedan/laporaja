@@ -4,7 +4,7 @@
         </button>
     </div>
 <nav class="nav-mobile d-flex">
-    <a href="index.html" class="active">
+    <a href="{{ route('home') }}" class="{{ request()->is('/') ? 'active' : ''  }}">
         <i class="fas fa-house"></i>
         Beranda
     </a>
@@ -20,8 +20,15 @@
         <i class="fas fa-bell"></i>
         Notifikasi
     </a>
-    <a href="profile.html" class="">
-        <i class="fas fa-user"></i>
-        Profil
+    @auth
+        <a href="profile.html" class="">
+            <i class="fas fa-user"></i>
+            Profil
+        </a>
+    @else
+    <a href="{{ route('register')}}" class="">
+        <i class="fas fa-right-to-bracket"></i>
+        Daftar
     </a>
+    @endauth
 </nav>

@@ -4,14 +4,14 @@
 
 @section('content')
 
-<h6 class="greeting">Hi, Zaedan👋</h6>
+<h6 class="greeting">Hi, {{ Auth::user()->name }}👋</h6>
     <h4 class="home-headline">Laporkan masalahmu dan kami segera atasi itu</h4>
 
     <div class="d-flex align-items-center justify-content-between gap-4 py-3 overflow-auto" id="category"
         style="white-space: nowrap;">
 
         @foreach ($categories as $category   )
-             <a href="#" class="category d-inline-block">
+             <a href="{{ route('report.index', ['category' => $category->name]) }}" class="category d-inline-block">
                 <div class="icon">
                     <img src="{{ asset('storage/'.$category->image) }}" alt="icon">
                 </div>
@@ -23,7 +23,7 @@
     <div class="py-3" id="reports">
         <div class="d-flex justify-content-between align-items-center">
             <h6>Pengaduan terbaru</h6>
-            <a href="reports.html" class="text-primary text-decoration-none show-more">
+            <a href="{{route('report.index')}}" class="text-primary text-decoration-none show-more">
                 Lihat semua
             </a>
         </div>
@@ -31,7 +31,7 @@
         <div class="d-flex flex-column gap-3 mt-3">
             @foreach ($reports as $report )
                 <div class="card card-report border-0 shadow-none">
-                    <a href="details.html" class="text-decoration-none text-dark">
+                    <a href="{{ route('report.show', $report->code) }}" class="text-decoration-none text-dark">
                         <div class="card-body p-0">
                             <div class="card-report-image position-relative mb-2">
                                 <img src="{{ asset('storage/' . $report->image) }}" alt="">

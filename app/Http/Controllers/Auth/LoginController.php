@@ -27,17 +27,13 @@ class LoginController extends Controller
     {
         $credentials = $request->validated();
 
-        // if($this->authRepository->login($credentials)){
-        //     dd('login berhasil');
-        // }
-
         if ($this->authRepository->login($credentials)) {
             if (Auth::user()->hasRole('Admin')) {
                 return redirect()->route('admin.dashboard');
             }
-        }
 
-        dd("login user berhasil");
+            return redirect()->route('home');
+        }
 
         return redirect()->route('login')->withErrors([
             'email' => 'Email Password Salah'
