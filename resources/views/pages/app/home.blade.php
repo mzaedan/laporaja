@@ -4,7 +4,13 @@
 
 @section('content')
 
-<h6 class="greeting">Hi, {{ Auth::user()->name }}👋</h6>
+@auth
+    <h6 class="greeting">Hi, {{ Auth::user()->name ?? '' }}👋 </h6>
+@endauth
+
+@guest
+    <h6 class="greeting">Selamat Datang, Di Aplikasi LaporAja</h6>
+@endguest
     <h4 class="home-headline">Laporkan masalahmu dan kami segera atasi itu</h4>
 
     <div class="d-flex align-items-center justify-content-between gap-4 py-3 overflow-auto" id="category"
