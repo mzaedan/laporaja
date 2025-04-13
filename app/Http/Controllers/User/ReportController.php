@@ -31,6 +31,14 @@ class ReportController extends Controller
         return view('pages.app.report.index', compact('reports'));
     }
 
+    public function myReport(Request $request)
+    {
+        $status = $request->status ?? 'delivered'; // Default ke 'delivered' jika tidak ada status
+        $reports = $this->reportRepository->getReportsByResidentId($status);
+        
+        return view('pages.app.report.my-report', compact('reports', 'status'));
+    }
+
     public function show($code)
     {
         $report = $this->reportRepository->getReportByCode($code);
@@ -61,12 +69,18 @@ class ReportController extends Controller
 
         $data['code'] = "LAPORAJA" . mt_rand(10000,99999);
         $data['resident_id'] = Auth::user()->resident->id;
-
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('assets/report/image', 'public');
         }
 
         $this->reportRepository->createReport($data);
+
+        return redirect()->route('report.success');
+    }
+
+    public function success()
+    {
+    return view('pages.app.report.success');
     }
 
 }

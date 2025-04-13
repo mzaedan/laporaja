@@ -12,8 +12,8 @@
 
     <form action="{{ route('report.store') }}" method="POST" class="mt-4" enctype="multipart/form-data" enctype="multipart/form-data">
         @csrf
-        <input type="hidden" id="lat" name="lat">
-        <input type="hidden" id="lng" name="lng">
+       <input type="hidden" id="latitude" name="latitude">
+       <input type="hidden" id="longitude" name="longitude">
 
         <div class="mb-3">
             <label for="title" class="form-label">Judul Laporan</label>

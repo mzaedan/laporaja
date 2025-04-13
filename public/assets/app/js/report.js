@@ -1,6 +1,6 @@
 var map = document.getElementById("map");
-var lattitude = document.getElementById("lat");
-var longitude = document.getElementById("lng");
+var latitude = document.getElementById("latitude");
+var longitude = document.getElementById("longitude");
 var address = document.getElementById("address");
 
 navigator.geolocation.getCurrentPosition(
@@ -8,8 +8,8 @@ navigator.geolocation.getCurrentPosition(
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
 
-        // Set ke input hidden
-        lattitude.value = lat;
+        // Set ke input hidden yang benar
+        latitude.value = lat;
         longitude.value = lng;
 
         // Inisialisasi map
