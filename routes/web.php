@@ -42,3 +42,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:Admin'])->grou
     route::get('/report-status/{reportId}/create', [ReportStatusController::class, 'create'])->name('report-status.create');
     route::resource('/report-status', ReportStatusController::class)->except('create');
 });
+
+Route::get('/app/notifications', function () {
+    return view('pages.app.notifications');
+})->name('app.notifications');

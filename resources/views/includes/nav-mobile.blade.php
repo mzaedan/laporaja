@@ -16,7 +16,7 @@
     <div></div>
     <div></div>
     <div></div>
-    <a href="" class="" id="notification-menu">
+    <a href="{{ route('app.notifications') }}" class="" id="notification-menu">
         <i class="fas fa-bell"></i>
         <span id="notification-count" style="display:none;" class="notification-badge"></span>
         Notifikasi
@@ -27,23 +27,9 @@
             Profil
         </a>
     @else
-    <a href="{{ route('register')}}" class="">
+    <a href="{{ route('login')}}" class="">
         <i class="fas fa-right-to-bracket"></i>
-        Daftar
+        Login
     </a>
     @endauth
 </nav>
-@push('scripts')
-<script>
-    @auth
-    window.Echo.private('App.Models.User.{{ auth()->id() }}')
-        .notification((notification) => {
-            let countElem = document.getElementById('notification-count');
-            let count = parseInt(countElem.textContent) || 0;
-            count++;
-            countElem.textContent = count;
-            countElem.style.display = 'inline-block';
-        });
-    @endauth
-</script>
-@endpush
