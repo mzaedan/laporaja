@@ -16,7 +16,7 @@
     <div></div>
     <div></div>
     <div></div>
-    <a href="{{ route('app.notifications') }}" class="" id="notification-menu">
+    <a href="{{ route('notifications') }}" class="" id="notification-menu">
         <i class="fas fa-bell"></i>
         <span id="notification-count" style="display:none;" class="notification-badge"></span>
         Notifikasi
