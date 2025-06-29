@@ -41,6 +41,11 @@ class Report extends Model
         return $this->hasMany(ReportStatus::class);
     }
 
+    public function feedback()
+    {
+        return $this->hasOne(Feedback::class);
+    }
+
     public function latestReportStatus()
     {
         return $this->hasOne(ReportStatus::class)->latestOfMany();

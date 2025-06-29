@@ -25,8 +25,17 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/report-success', [UserReportController::class, 'success'])->name('report.success');
     Route::get('/my-report',[UserReportController::class, 'myReport'])->name('report.myreport');
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
-
+    
     Route::get('profile/',[ProfileController::class, 'index'])->name('profile');
+    
+    // Perbaikan: Konsistensi parameter dan pindahkan feedback.success ke dalam auth middleware
+    Route::get('/feedback/{report}', [\App\Http\Controllers\FeedbackController::class, 'form'])->name('feedback.form');
+    Route::post('/feedback/{report}', [\App\Http\Controllers\FeedbackController::class, 'store'])->name('feedback.store');
+    Route::get('/feedback-success', [\App\Http\Controllers\FeedbackController::class, 'success'])->name('feedback.success');
+    
+    Route::get('/app/notifications', function () {
+        return view('pages.app.notifications');
+    })->name('app.notifications');
 });
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -44,7 +53,3 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:Admin'])->grou
     route::get('/report-status/{reportId}/create', [ReportStatusController::class, 'create'])->name('report-status.create');
     route::resource('/report-status', ReportStatusController::class)->except('create');
 });
-
-Route::get('/app/notifications', function () {
-    return view('pages.app.notifications');
-})->name('app.notifications');

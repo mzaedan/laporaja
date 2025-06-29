@@ -91,35 +91,10 @@
                                                         <span class="text-success me-2">✅</span>
                                                         <p class="mb-0 text-dark">Laporan Anda telah selesai ditangani</p>
                                                     </div>
-                                                    <!-- Feedback Form -->
                                                     @if(empty($status->report->feedback))
-                                                    <form action="{{ route('feedback.store', $status->report->id) }}" method="POST" class="mt-3 border-top pt-3">
-                                                        @csrf
-                                                        <div class="mb-3">
-                                                            <label for="impression" class="form-label fw-bold">Kesan</label>
-                                                            <textarea name="impression" id="impression" class="form-control" rows="2" required>{{ old('impression') }}</textarea>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="message" class="form-label fw-bold">Pesan</label>
-                                                            <textarea name="message" id="message" class="form-control" rows="2" required>{{ old('message') }}</textarea>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label fw-bold">Tingkat Kepuasan</label>
-                                                            <div class="d-flex align-items-center gap-2">
-                                                                <span class="small">Sangat Tidak Puas</span>
-                                                                @for($i = 1; $i <= 5; $i++)
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio" name="satisfaction" id="satisfaction{{ $i }}" value="{{ $i }}" {{ old('satisfaction') == $i ? 'checked' : '' }} required>
-                                                                        <label class="form-check-label" for="satisfaction{{ $i }}">{{ $i }}</label>
-                                                                    </div>
-                                                                @endfor
-                                                                <span class="small">Sangat Puas</span>
-                                                            </div>
-                                                        </div>
-                                                        <button type="submit" class="btn btn-primary btn-sm rounded-pill">Kirim Feedback</button>
-                                                    </form>
+                                                        <a href="{{ route('feedback.form', $status->report->id) }}" class="btn btn-outline-primary btn-sm mt-3 rounded-pill">Beri Feedback</a>
                                                     @else
-                                                    <div class="alert alert-success mt-3 mb-0 p-2 small">Feedback sudah dikirim. Terima kasih!</div>
+                                                        <div class="alert alert-success mt-3 mb-0 p-2 small">Feedback sudah dikirim. Terima kasih!</div>
                                                     @endif
                                                     @break
                                                 @case('rejected')
