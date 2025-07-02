@@ -23,7 +23,7 @@
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        path: '{{ asset('assets/app/lottie/thankyou.json') }}' // Ganti dengan file animasi Lottie yang sesuai
+        path: '{{ asset('assets/app/lottie/feedback-success.json') }}'
     })
 </script>
 @endsection

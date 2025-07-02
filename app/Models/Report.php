@@ -18,7 +18,8 @@ class Report extends Model
         'image',
         'latitude',
         'longitude',
-        'address'
+        'address',
+        'urgency_level'
     ];
 
     public function resident()
@@ -41,9 +42,9 @@ class Report extends Model
         return $this->hasMany(ReportStatus::class);
     }
 
-    public function feedback()
+    public function feedbacks()
     {
-        return $this->hasOne(Feedback::class);
+        return $this->hasMany(Feedback::class);
     }
 
     public function latestReportStatus()

@@ -21,7 +21,9 @@
                 <div class="icon d-flex align-items-center justify-content-center" style="height: 60px; width: 60px; margin-bottom: 8px;">
                     <img src="{{ asset('storage/'.$category->image) }}" alt="icon" style="max-height: 100%; max-width: 100%; object-fit: contain;">
                 </div>
-                <p class="text-center mb-0" style="font-size: 12px; line-height: 1.2;">{{ $category->name }}</p>
+                <p class="text-center mb-0" style="font-size: 12px; line-height: 1.2;">
+                    {{ Str::headline(Str::words($category->name, 1, '')) }}
+                </p>
             </a>
         @endforeach
     </div>

@@ -29,10 +29,10 @@
             <div class="form-group">
                 <img src="{{ asset('storage/' .$category->image) }}" alt="icon-category" width="200" style="padding-bottom: 20px;">
                 <br />
-                <label for="tanggal">Gambar/Icon</label>
+                <label for="image">Gambar/Icon <small class="text-muted">(Kosongkan jika tidak ingin mengganti)</small></label>
                 <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
                 <div class="invalid-feedback">
-                    @error('password')
+                    @error('image')
                         {{ $message }}
                     @enderror
                 </div>

@@ -15,7 +15,7 @@ class UpdateReportCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp'
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp'
         ];
     }
 }

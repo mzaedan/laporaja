@@ -22,6 +22,10 @@ interface ReportRepositoryInterface {
     public function updateReport(array $data, int $id);
 
     public function deleteReport(int $id);
+
+    public function getPrioritizedReports();
+
+    public function updateReportUrgency(int $reportId, int $urgencyLevel);
 }
 
 ?>

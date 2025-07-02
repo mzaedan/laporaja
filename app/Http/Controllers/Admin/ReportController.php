@@ -33,7 +33,7 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $reports = $this->reportRepository->getAllReports();
+        $reports = $this->reportRepository->getPrioritizedReports();
 
         return view('pages.admin.report.index', compact('reports'));
     }

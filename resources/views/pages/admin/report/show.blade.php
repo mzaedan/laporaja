@@ -108,6 +108,40 @@
         </div>
     </div>
 
+<div class="card shadow mb-5">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Feedback Laporan</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Pesan</th>
+                        <th>Kesan</th>
+                        <th>Nilai</th>
+                        <th>Tanggal Feedback</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse (($report->feedbacks ?? []) as $feedback)
+                        <tr>
+                            <td>{{ $feedback->impression }}</td>
+                            <td>{{ $feedback->message }}</td>
+                            <td>{{ $feedback->satisfaction }}</td>
+                            <td>{{ $feedback->created_at->format('d-m-Y H:i') }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4" class="text-center">Belum ada feedback untuk laporan ini.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('scripts')

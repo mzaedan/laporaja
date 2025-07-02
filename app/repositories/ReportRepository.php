@@ -39,7 +39,7 @@ class ReportRepository implements ReportRepositoryInterface {
 
     public function getReportById(int $id)
     {
-        return Report::where('id', $id)->first();
+        return Report::with(['feedbacks.user', 'reportStatuses'])->where('id', $id)->first();
     }
 
     public function getReportByCode(string $code)
@@ -56,8 +56,17 @@ class ReportRepository implements ReportRepositoryInterface {
 
     public function createReport(array $data)
     {
+        // Mapping report_category_id ke level prioritas
+        $priorityMap = [
+            1 => 2, // Sedang
+            2 => 3, // Tinggi
+            3 => 1, // Rendah
+        ];
+        $categoryId = $data['report_category_id'] ?? null;
+        $urgency = $priorityMap[$categoryId] ?? 1; // Default ke 'Rendah' jika tidak ditemukan
+        $data['urgency_level'] = $urgency;
+
         $report = Report::create($data);
-        
         $report->reportStatuses()->create([
             'status' => 'delivered',
             'description' => 'laporan Berhasil Diterima',
@@ -77,6 +86,31 @@ class ReportRepository implements ReportRepositoryInterface {
         
         return $report->delete();
     }
-}
 
-?>
+    public function getPrioritizedReports()
+    {
+        return Report::whereHas('reportStatuses', function($query) {
+                $query->whereIn('id', function($subquery) {
+                    $subquery->selectRaw('MAX(id)')
+                            ->from('report_statuses')
+                            ->where('status', '!=', 'selesai')
+                            ->groupBy('report_id');
+                });
+            })
+            ->orderBy('urgency_level', 'desc')
+            ->orderBy('created_at', 'asc')
+            ->get();
+    }
+
+    public function updateReportUrgency(int $reportId, int $urgencyLevel)
+    {
+        $report = $this->getReportById($reportId);
+        if ($report) {
+            $report->update([
+                'urgency_level' => $urgencyLevel
+            ]);
+            return true;
+       }
+        return false;
+    }
+}
