@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2024-07-12T12:00:00.000Z" agent="5.0" etag="def456" version="21.0.0" type="device">
+  <diagram name="Use Case Diagram" id="usecase-diagram">
+    <mxGraphModel dx="1422" dy="754" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title" value="USE CASE DIAGRAM&#xa;SISTEM INFORMASI PENGADUAN MASYARAKAT BERBASIS WEB&#xa;DESA RAJAMANDALA KULON" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="400" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- System Boundary -->
+        <mxCell id="system_boundary" value="Sistem Informasi Pengaduan Masyarakat Berbasis Web" style="shape=umlFrame;whiteSpace=wrap;html=1;width=600;height=40;boundedLbl=1;verticalAlign=middle;align=left;spacingLeft=5;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="100" width="600" height="550" as="geometry" />
+        </mxCell>
+        
+        <!-- Actors -->
+        <!-- Masyarakat Actor -->
+        <mxCell id="actor_masyarakat" value="Masyarakat" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="300" width="30" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Admin Actor -->
+        <mxCell id="actor_admin" value="Admin&#xa;(Perangkat Desa)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="980" y="300" width="30" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Use Cases for Masyarakat -->
+        <mxCell id="uc_akses_sistem" value="Mengakses Sistem&#xa;Melalui Browser" style="ellipse;whiteSpace=wrap;html=1;fontSize=10;fillColor=#e1f5fe;strokeColor=#01579b;" vertex="1" parent="1">
+          <mxGeometry x="340" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_login_masyarakat" value="Login ke Sistem" style="ellipse;whiteSpace=wrap;html=1;fontSize=10;fillColor=#f3e5f5;strokeColor=#4a148c;" vertex="1" parent="1">
+          <mxGeometry x="340" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_isi_formulir" value="Mengisi Formulir&#xa;Pengaduan" style="ellipse;whiteSpace=wrap;html=1;fontSize=10;fillColor=#e8f5e8;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="340" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_upload_bukti" value="Mengunggah Bukti&#xa;(Foto)" style="ellipse;whiteSpace=wrap;html=1;fontSize=10;fillColor=#fff3e0;strokeColor=#e65100;" vertex="1" parent="1">
+          <mxGeometry x="500" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_lacak_status" value="Melacak Status&#xa;Aduan" style="ellipse;whiteSpace=wrap;html=1;fontSize=10;fillColor=#e8f5e8;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="340" y="380" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_terima_notifikasi" value="Menerima Notifikasi&#xa;Status Laporan" style="ellipse;whiteSpace=wrap;html=1;fontSize=10;fillColor=#e1f5fe;strokeColor=#01579b;" vertex="1" parent="1">
+          <mxGeometry x="340" y="460" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Use Cases for Admin -->
+        <mxCell id="uc_login_admin" value="Login ke Dashboard&#xa;Admin" style="ellipse;whiteSpace=wrap;html=1;fontSize=10;fillColor=#f3e5f5;strokeColor=#4a148c;" vertex="1" parent="1">
+          <mxGeometry x="720" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_terima_laporan" value="Menerima Laporan&#xa;dari Masyarakat" style="ellipse;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffebee;strokeColor=#c62828;" vertex="1" parent="1">
+          <mxGeometry x="720" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_lihat_antrian" value="Melihat Antrian&#xa;Laporan Berdasarkan&#xa;Prioritas" style="ellipse;whiteSpace=wrap;html=1;fontSize=9;fillColor=#fff9c4;strokeColor=#f57f17;" vertex="1" parent="1">
+          <mxGeometry x="720" y="290" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_verifikasi_laporan" value="Memverifikasi&#xa;Laporan Masuk" style="ellipse;whiteSpace=wrap;html=1;fontSize=10;fillColor=#e8f5e8;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="720" y="370" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_tindaklanjuti" value="Menindaklanjuti&#xa;Laporan ke Petugas&#xa;Lapangan" style="ellipse;whiteSpace=wrap;html=1;fontSize=9;fillColor=#fff3e0;strokeColor=#e65100;" vertex="1" parent="1">
+          <mxGeometry x="720" y="440" width="120" height="70" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_update_status" value="Memperbarui Status&#xa;Laporan" style="ellipse;whiteSpace=wrap;html=1;fontSize=10;fillColor=#e1f5fe;strokeColor=#01579b;" vertex="1" parent="1">
+          <mxGeometry x="720" y="520" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="uc_lihat_riwayat" value="Melihat Riwayat&#xa;Laporan" style="ellipse;whiteSpace=wrap;html=1;fontSize=10;fillColor=#f3e5f5;strokeColor=#4a148c;" vertex="1" parent="1">
+          <mxGeometry x="560" y="520" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Associations from Masyarakat to Use Cases -->
+        <mxCell id="assoc1" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="actor_masyarakat" target="uc_akses_sistem">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="220" y="330" as="sourcePoint" />
+            <mxPoint x="340" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="assoc2" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="actor_masyarakat" target="uc_login_masyarakat">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="220" y="330" as="sourcePoint" />
+            <mxPoint x="340" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="assoc3" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="actor_masyarakat" target="uc_isi_formulir">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="220" y="330" as="sourcePoint" />
+            <mxPoint x="340" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="assoc4" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="actor_masyarakat" target="uc_lacak_status">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="220" y="330" as="sourcePoint" />
+            <mxPoint x="340" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="assoc5" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="actor_masyarakat" target="uc_terima_notifikasi">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="220" y="330" as="sourcePoint" />
+            <mxPoint x="340" y="490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Associations from Admin to Use Cases -->
+        <mxCell id="assoc6" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="actor_admin" target="uc_login_admin">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="980" y="330" as="sourcePoint" />
+            <mxPoint x="840" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="assoc7" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="actor_admin" target="uc_terima_laporan">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="980" y="330" as="sourcePoint" />
+            <mxPoint x="840" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="assoc8" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="actor_admin" target="uc_lihat_antrian">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="980" y="330" as="sourcePoint" />
+            <mxPoint x="840" y="325" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="assoc9" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="actor_admin" target="uc_verifikasi_laporan">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="980" y="330" as="sourcePoint" />
+            <mxPoint x="840" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="assoc10" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="actor_admin" target="uc_tindaklanjuti">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="980" y="330" as="sourcePoint" />
+            <mxPoint x="840" y="475" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="assoc11" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="actor_admin" target="uc_update_status">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="980" y="330" as="sourcePoint" />
+            <mxPoint x="840" y="550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="assoc12" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="actor_admin" target="uc_lihat_riwayat">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="980" y="330" as="sourcePoint" />
+            <mxPoint x="680" y="550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Include Relationships -->
+        <!-- Login sebagai prasyarat untuk mengisi formulir -->
+        <mxCell id="include1" value="&lt;&lt;include&gt;&gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;fontSize=9;" edge="1" parent="1" source="uc_isi_formulir" target="uc_login_masyarakat">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="380" y="310" as="sourcePoint" />
+            <mxPoint x="380" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Login sebagai prasyarat untuk melacak status -->
+        <mxCell id="include2" value="&lt;&lt;include&gt;&gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;fontSize=9;" edge="1" parent="1" source="uc_lacak_status" target="uc_login_masyarakat">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="380" y="390" as="sourcePoint" />
+            <mxPoint x="380" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Upload bukti sebagai bagian dari isi formulir -->
+        <mxCell id="include3" value="&lt;&lt;include&gt;&gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;fontSize=9;" edge="1" parent="1" source="uc_isi_formulir" target="uc_upload_bukti">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="460" y="330" as="sourcePoint" />
+            <mxPoint x="500" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Legend -->
+        <mxCell id="legend_title" value="LEGEND:" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="680" width="80" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend_include" value="&lt;&lt;include&gt;&gt; = Relasi ketergantungan yang menunjukkan use case yang harus dijalankan" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="700" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend_actors" value="Aktor: Masyarakat dan Admin (Perangkat Desa)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="720" width="300" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend_colors" value="Warna berbeda untuk memudahkan identifikasi kategori use case" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="740" width="350" height="20" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

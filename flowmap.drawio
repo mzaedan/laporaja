@@ -1,181 +1,284 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mxfile host="app.diagrams.net" modified="2025-06-27T10:00:00.000Z" agent="5.0" etag="flowchart-pengaduan" version="21.6.5">
-  <diagram name="Aplikasi Pengaduan Masyarakat" id="flowchart-pengaduan">
-    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+<mxfile host="app.diagrams.net" modified="2025-07-13T12:00:00.000Z" agent="5.0" etag="draw.io" version="21.6.5" type="device">
+  <diagram name="Flowmap Pengaduan Masyarakat" id="flowmap-pengaduan">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         
-        <!-- Start -->
-        <mxCell id="start" value="START&#xa;User Buka Aplikasi" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="364" y="40" width="120" height="60" as="geometry" />
+        <!-- Swimlane Headers -->
+        <mxCell id="lane-user" value="MASYARAKAT (USER)" style="swimlane;startSize=40;html=1;fontSize=14;fontStyle=1;fillColor=#e1f5fe;strokeColor=#01579b;swimlaneFillColor=#f0f8ff;" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="300" height="1400" as="geometry" />
         </mxCell>
         
-        <!-- Check Login Status -->
-        <mxCell id="checkLogin" value="Sudah Login?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
-          <mxGeometry x="354" y="140" width="140" height="80" as="geometry" />
+        <mxCell id="lane-system" value="SISTEM (WEB PENGADUAN)" style="swimlane;startSize=40;html=1;fontSize=14;fontStyle=1;fillColor=#e8f5e8;strokeColor=#2e7d32;swimlaneFillColor=#f8fff8;" vertex="1" parent="1">
+          <mxGeometry x="350" y="50" width="350" height="1400" as="geometry" />
         </mxCell>
         
-        <!-- Check Registration -->
-        <mxCell id="checkRegister" value="Sudah Punya&#xa;Akun?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
-          <mxGeometry x="154" y="280" width="140" height="80" as="geometry" />
+        <mxCell id="lane-admin" value="ADMIN (PERANGKAT DESA)" style="swimlane;startSize=40;html=1;fontSize=14;fontStyle=1;fillColor=#fff3e0;strokeColor=#e65100;swimlaneFillColor=#fffaf0;" vertex="1" parent="1">
+          <mxGeometry x="700" y="50" width="350" height="1400" as="geometry" />
         </mxCell>
         
-        <!-- Register Process -->
-        <mxCell id="register" value="Daftar/Register&#xa;- Nama Lengkap&#xa;- Email&#xa;- No. Telepon&#xa;- Password" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry x="34" y="420" width="140" height="80" as="geometry" />
+        <!-- Start Process -->
+        <mxCell id="start" value="MULAI" style="ellipse;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;fillColor=#4caf50;strokeColor=#2e7d32;fontColor=white;" vertex="1" parent="lane-user">
+          <mxGeometry x="110" y="70" width="80" height="50" as="geometry" />
         </mxCell>
         
-        <!-- Login Process -->
-        <mxCell id="login" value="Login&#xa;- Email/Username&#xa;- Password" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry x="234" y="420" width="140" height="80" as="geometry" />
+        <!-- User Process 1 -->
+        <mxCell id="user-1" value="Membuka Website&#xa;Pengaduan" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fillColor=#bbdefb;strokeColor=#1976d2;" vertex="1" parent="lane-user">
+          <mxGeometry x="80" y="160" width="140" height="60" as="geometry" />
         </mxCell>
         
-        <!-- Home Page -->
-        <mxCell id="mainMenu" value="Halaman Home&#xa;Menampilkan Semua&#xa;Laporan" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
-          <mxGeometry x="554" y="280" width="140" height="60" as="geometry" />
+        <!-- User Process 2 -->
+        <mxCell id="user-2" value="Mengisi Form&#xa;Pengaduan" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=11;fillColor=#bbdefb;strokeColor=#1976d2;" vertex="1" parent="lane-user">
+          <mxGeometry x="80" y="260" width="140" height="60" as="geometry" />
         </mxCell>
         
-        <!-- Camera Menu -->
-        <mxCell id="cameraMenu" value="Menu Ambil Gambar&#xa;Menggunakan Kamera HP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
-          <mxGeometry x="554" y="380" width="140" height="60" as="geometry" />
+        <!-- User Process 3 -->
+        <mxCell id="user-3" value="Input Data:&#xa;• Pelapor&#xa;• Lokasi&#xa;• Kategori&#xa;• Deskripsi&#xa;• Upload Foto" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=10;fillColor=#bbdefb;strokeColor=#1976d2;" vertex="1" parent="lane-user">
+          <mxGeometry x="80" y="360" width="140" height="80" as="geometry" />
         </mxCell>
         
-        <!-- Take Photo -->
-        <mxCell id="takePhoto" value="Ambil Foto&#xa;Bukti Laporan" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
-          <mxGeometry x="554" y="480" width="140" height="60" as="geometry" />
+        <!-- System Process 1 -->
+        <mxCell id="system-1" value="Menerima Data&#xa;Pengaduan" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="lane-system">
+          <mxGeometry x="105" y="360" width="140" height="60" as="geometry" />
         </mxCell>
         
-        <!-- Fill Form -->
-        <mxCell id="fillForm" value="Mengisi Form Laporan:&#xa;- Judul Laporan&#xa;- Kategori Laporan&#xa;- Upload Bukti Foto&#xa;- Deskripsi Laporan" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
-          <mxGeometry x="504" y="580" width="240" height="80" as="geometry" />
+        <!-- System Process 2 -->
+        <mxCell id="system-2" value="Klasifikasi Prioritas&#xa;Otomatis" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="lane-system">
+          <mxGeometry x="105" y="480" width="140" height="60" as="geometry" />
         </mxCell>
         
-        <!-- Address Check -->
-        <mxCell id="addressCheck" value="Alamat Lengkap&#xa;Sudah Tepat?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
-          <mxGeometry x="554" y="700" width="140" height="80" as="geometry" />
+        <!-- System Decision -->
+        <mxCell id="system-decision" value="Prioritas?" style="rhombus;whiteSpace=wrap;html=1;fontSize=11;fillColor=#fff9c4;strokeColor=#f57f17;" vertex="1" parent="lane-system">
+          <mxGeometry x="130" y="580" width="90" height="70" as="geometry" />
         </mxCell>
         
-        <!-- Fill Address -->
-        <mxCell id="fillAddress" value="Isi/Perbaiki&#xa;Alamat Lengkap" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
-          <mxGeometry x="304" y="820" width="140" height="60" as="geometry" />
+        <!-- Priority Results -->
+        <mxCell id="priority-high" value="TINGGI" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffcdd2;strokeColor=#d32f2f;" vertex="1" parent="lane-system">
+          <mxGeometry x="30" y="700" width="70" height="40" as="geometry" />
         </mxCell>
         
-        <!-- Submit Report -->
-        <mxCell id="submitReport" value="Submit Laporan" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="554" y="920" width="140" height="60" as="geometry" />
+        <mxCell id="priority-medium" value="SEDANG" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#fff3e0;strokeColor=#f57c00;" vertex="1" parent="lane-system">
+          <mxGeometry x="140" y="700" width="70" height="40" as="geometry" />
         </mxCell>
         
-        <!-- End -->
-        <mxCell id="end" value="END&#xa;Laporan Berhasil&#xa;Dikirim" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="564" y="1020" width="120" height="60" as="geometry" />
+        <mxCell id="priority-low" value="RENDAH" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#e8f5e8;strokeColor=#4caf50;" vertex="1" parent="lane-system">
+          <mxGeometry x="250" y="700" width="70" height="40" as="geometry" />
         </mxCell>
         
-        <!-- Arrows/Connections -->
-        <mxCell id="arrow1" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="start" target="checkLogin">
+        <!-- System Process 3 -->
+        <mxCell id="system-3" value="Mengirim ke&#xa;Dashboard Admin" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="lane-system">
+          <mxGeometry x="105" y="780" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Admin Process 1 -->
+        <mxCell id="admin-1" value="Menerima Laporan&#xa;di Dashboard" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fillColor=#ffcc80;strokeColor=#e65100;" vertex="1" parent="lane-admin">
+          <mxGeometry x="105" y="780" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Admin Decision -->
+        <mxCell id="admin-decision" value="Verifikasi&#xa;Laporan?" style="rhombus;whiteSpace=wrap;html=1;fontSize=11;fillColor=#fff9c4;strokeColor=#f57f17;" vertex="1" parent="lane-admin">
+          <mxGeometry x="130" y="880" width="90" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Admin Process 2 -->
+        <mxCell id="admin-2" value="Meneruskan ke&#xa;Petugas Lapangan" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fillColor=#ffcc80;strokeColor=#e65100;" vertex="1" parent="lane-admin">
+          <mxGeometry x="105" y="1000" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- System Process 4 -->
+        <mxCell id="system-4" value="Update Status&#xa;Laporan" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="lane-system">
+          <mxGeometry x="105" y="1000" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Status Types -->
+        <mxCell id="status-types" value="Status:&#xa;• Menunggu&#xa;• Diproses&#xa;• Selesai&#xa;• Ditolak" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fontSize=10;fillColor=#f3e5f5;strokeColor=#7b1fa2;" vertex="1" parent="lane-system">
+          <mxGeometry x="105" y="1100" width="140" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- User Process 4 -->
+        <mxCell id="user-4" value="Menerima Notifikasi&#xa;atau Lacak Aduan" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fillColor=#bbdefb;strokeColor=#1976d2;" vertex="1" parent="lane-user">
+          <mxGeometry x="80" y="1120" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- System Process 5 -->
+        <mxCell id="system-5" value="Simpan ke Database&#xa;untuk Dokumentasi" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fontSize=11;fillColor=#e1f5fe;strokeColor=#0277bd;" vertex="1" parent="lane-system">
+          <mxGeometry x="105" y="1220" width="140" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- End Process -->
+        <mxCell id="end" value="SELESAI" style="ellipse;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;fillColor=#f44336;strokeColor=#c62828;fontColor=white;" vertex="1" parent="lane-user">
+          <mxGeometry x="110" y="1320" width="80" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrows -->
+        <mxCell id="arrow-1" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="start" target="user-1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="400" y="300" as="sourcePoint" />
-            <mxPoint x="450" y="250" as="targetPoint" />
+            <mxPoint x="200" y="140" as="sourcePoint" />
+            <mxPoint x="250" y="90" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         
-        <mxCell id="arrow2" value="Ya" style="endArrow=classic;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="checkLogin" target="mainMenu">
+        <mxCell id="arrow-2" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="user-1" target="user-2">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="400" y="300" as="sourcePoint" />
-            <mxPoint x="450" y="250" as="targetPoint" />
+            <mxPoint x="200" y="240" as="sourcePoint" />
+            <mxPoint x="250" y="190" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         
-        <mxCell id="arrow3" value="Tidak" style="endArrow=classic;html=1;exitX=0;exitY=0.5;entryX=0.5;entryY=0;" edge="1" parent="1" source="checkLogin" target="checkRegister">
+        <mxCell id="arrow-3" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="user-2" target="user-3">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="400" y="300" as="sourcePoint" />
-            <mxPoint x="450" y="250" as="targetPoint" />
+            <mxPoint x="200" y="340" as="sourcePoint" />
+            <mxPoint x="250" y="290" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         
-        <mxCell id="arrow4" value="Tidak" style="endArrow=classic;html=1;exitX=0;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="checkRegister" target="register">
+        <mxCell id="arrow-4" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="user-3" target="system-1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="400" y="300" as="sourcePoint" />
-            <mxPoint x="450" y="250" as="targetPoint" />
+            <mxPoint x="230" y="400" as="sourcePoint" />
+            <mxPoint x="280" y="350" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         
-        <mxCell id="arrow5" value="Ya" style="endArrow=classic;html=1;exitX=1;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="checkRegister" target="login">
+        <mxCell id="arrow-5" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="system-1" target="system-2">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="400" y="300" as="sourcePoint" />
-            <mxPoint x="450" y="250" as="targetPoint" />
+            <mxPoint x="525" y="450" as="sourcePoint" />
+            <mxPoint x="575" y="400" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         
-        <mxCell id="arrow6" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;entryX=0;entryY=1;" edge="1" parent="1" source="register" target="mainMenu">
+        <mxCell id="arrow-6" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="system-2" target="system-decision">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="400" y="400" as="sourcePoint" />
-            <mxPoint x="450" y="350" as="targetPoint" />
+            <mxPoint x="525" y="570" as="sourcePoint" />
+            <mxPoint x="575" y="520" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         
-        <mxCell id="arrow7" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;entryX=0;entryY=1;" edge="1" parent="1" source="login" target="mainMenu">
+        <mxCell id="arrow-7a" value="Tinggi" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="system-decision" target="priority-high">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="400" y="400" as="sourcePoint" />
-            <mxPoint x="450" y="350" as="targetPoint" />
+            <mxPoint x="450" y="650" as="sourcePoint" />
+            <mxPoint x="500" y="600" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         
-        <mxCell id="arrow8" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="mainMenu" target="cameraMenu">
+        <mxCell id="arrow-7b" value="Sedang" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="system-decision" target="priority-medium">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="400" y="400" as="sourcePoint" />
-            <mxPoint x="450" y="350" as="targetPoint" />
+            <mxPoint x="525" y="650" as="sourcePoint" />
+            <mxPoint x="575" y="600" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         
-        <mxCell id="arrow9" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="cameraMenu" target="takePhoto">
+        <mxCell id="arrow-7c" value="Rendah" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="system-decision" target="priority-low">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="400" y="400" as="sourcePoint" />
-            <mxPoint x="450" y="350" as="targetPoint" />
+            <mxPoint x="550" y="650" as="sourcePoint" />
+            <mxPoint x="600" y="600" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         
-        <mxCell id="arrow10" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="takePhoto" target="fillForm">
+        <mxCell id="arrow-8" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="priority-medium" target="system-3">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="400" y="400" as="sourcePoint" />
-            <mxPoint x="450" y="350" as="targetPoint" />
+            <mxPoint x="525" y="750" as="sourcePoint" />
+            <mxPoint x="575" y="700" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         
-        <mxCell id="arrow11" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="fillForm" target="addressCheck">
+        <mxCell id="arrow-9" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="system-3" target="admin-1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="400" y="400" as="sourcePoint" />
-            <mxPoint x="450" y="350" as="targetPoint" />
+            <mxPoint x="600" y="810" as="sourcePoint" />
+            <mxPoint x="650" y="760" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         
-        <mxCell id="arrow12" value="Tidak" style="endArrow=classic;html=1;exitX=0;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="addressCheck" target="fillAddress">
+        <mxCell id="arrow-10" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="admin-1" target="admin-decision">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="400" y="400" as="sourcePoint" />
-            <mxPoint x="450" y="350" as="targetPoint" />
+            <mxPoint x="875" y="870" as="sourcePoint" />
+            <mxPoint x="925" y="820" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         
-        <mxCell id="arrow13" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="fillAddress" target="addressCheck">
+        <mxCell id="arrow-11" value="Diterima" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="admin-decision" target="admin-2">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="400" y="400" as="sourcePoint" />
-            <mxPoint x="450" y="350" as="targetPoint" />
+            <mxPoint x="875" y="970" as="sourcePoint" />
+            <mxPoint x="925" y="920" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         
-        <mxCell id="arrow14" value="Ya" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="addressCheck" target="submitReport">
+        <mxCell id="arrow-12" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="admin-2" target="system-4">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="400" y="400" as="sourcePoint" />
-            <mxPoint x="450" y="350" as="targetPoint" />
+            <mxPoint x="800" y="1030" as="sourcePoint" />
+            <mxPoint x="850" y="980" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         
-        <mxCell id="arrow15" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="submitReport" target="end">
+        <mxCell id="arrow-13" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="system-4" target="status-types">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="400" y="400" as="sourcePoint" />
-            <mxPoint x="450" y="350" as="targetPoint" />
+            <mxPoint x="525" y="1090" as="sourcePoint" />
+            <mxPoint x="575" y="1040" as="targetPoint" />
           </mxGeometry>
         </mxCell>
+        
+        <mxCell id="arrow-14" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="status-types" target="user-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="450" y="1140" as="sourcePoint" />
+            <mxPoint x="500" y="1090" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow-15" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="status-types" target="system-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="525" y="1210" as="sourcePoint" />
+            <mxPoint x="575" y="1160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow-16" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="user-4" target="end">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="200" y="1210" as="sourcePoint" />
+            <mxPoint x="250" y="1160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Rejected Path -->
+        <mxCell id="arrow-reject" value="Ditolak" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#d32f2f;" edge="1" parent="1" source="admin-decision" target="system-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="820" y="915" as="sourcePoint" />
+            <mxPoint x="650" y="1030" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="750" y="965" />
+              <mxPoint x="750" y="1080" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Additional arrows for priority paths -->
+        <mxCell id="arrow-priority-1" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="priority-high">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="415" y="740" as="sourcePoint" />
+            <mxPoint x="525" y="780" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="415" y="760" />
+              <mxPoint x="525" y="760" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow-priority-3" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="priority-low">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="635" y="740" as="sourcePoint" />
+            <mxPoint x="525" y="780" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="635" y="760" />
+              <mxPoint x="525" y="760" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Title -->
+        <mxCell id="title" value="FLOWMAP SISTEM INFORMASI PENGADUAN MASYARAKAT&#xa;DESA RAJAMANDALA KULON" style="rounded=0;whiteSpace=wrap;html=1;fontSize=16;fontStyle=1;fillColor=#1976d2;strokeColor=#0d47a1;fontColor=white;" vertex="1" parent="1">
+          <mxGeometry x="200" y="10" width="700" height="50" as="geometry" />
+        </mxCell>
+        
       </root>
     </mxGraphModel>
   </diagram>
