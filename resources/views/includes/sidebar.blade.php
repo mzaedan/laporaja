@@ -20,10 +20,10 @@
     </li>
 
     <!-- Nav Item - Tables -->
-    <li class="nav-item {{ request()->is('admin/resident*') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.resident.index') }}">
+    <li class="nav-item {{ request()->is('admin/report') || request()->is('admin/report/create') || request()->is('admin/report/*/edit') || request()->is('admin/report/*') && !request()->is('admin/report-category*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.report.index') }}">
             <i class="fas fa-fw fa-table"></i>
-            <span>Data Masyarakat</span>
+            <span>Data Laporan</span>
         </a>
     </li>
 
@@ -34,10 +34,10 @@
         </a>
     </li>
 
-    <li class="nav-item {{ request()->is('admin/report') || request()->is('admin/report/create') || request()->is('admin/report/*/edit') || request()->is('admin/report/*') && !request()->is('admin/report-category*') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.report.index') }}">
+    <li class="nav-item {{ request()->is('admin/resident*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.resident.index') }}">
             <i class="fas fa-fw fa-table"></i>
-            <span>Data Laporan</span>
+            <span>Data Masyarakat</span>
         </a>
     </li>
 </ul>
