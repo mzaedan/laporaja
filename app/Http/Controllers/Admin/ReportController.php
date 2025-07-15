@@ -10,6 +10,8 @@ use App\Interfaces\ReportRepositoryInterface;
 use App\Interfaces\ResidentRepositoryInterface;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert as Swal;
+use App\Exports\ReportsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
 {
@@ -120,5 +122,26 @@ class ReportController extends Controller
         Swal::toast('Data Laporan Berhasil Dihapus', 'success')->timerProgressBar();
 
         return redirect()->route('admin.report.index');
+    }
+
+    /**
+     * Export the specified resource to an Excel file.
+     */
+    public function export(Request $request)
+    {
+        $month = $request->input('month');
+        $year = $request->input('year');
+
+        $filename = 'laporan-pengaduan-';
+        if ($month && $year) {
+            $filename .= $month.'-'.$year;
+        } elseif ($year) {
+            $filename .= $year;
+        } else {
+            $filename .= 'semua-periode';
+        }
+        $filename .= '.xlsx';
+
+        return Excel::download(new ReportsExport($month, $year), $filename);
     }
 }

@@ -52,4 +52,5 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:Admin'])->grou
     route::resource('/report', ReportController::class);
     route::get('/report-status/{reportId}/create', [ReportStatusController::class, 'create'])->name('report-status.create');
     route::resource('/report-status', ReportStatusController::class)->except('create');
+    Route::get('/reports/export', [ReportController::class, 'export'])->name('report.export');
 });
