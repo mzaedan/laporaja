@@ -12,11 +12,16 @@ class NotificationController extends Controller
     {
         $user = auth()->user();
         $statuses = collect();
+        $jumlahProgres = 0;
         if ($user && $user->resident) {
             $statuses = ReportStatus::whereHas('report', function($q) use ($user) {
                 $q->where('resident_id', $user->resident->id);
             })->latest()->get();
+            // Hitung jumlah laporan yang statusnya belum completed
+            $jumlahProgres = \App\Models\ReportStatus::whereHas('report', function($q) use ($user) {
+                $q->where('resident_id', $user->resident->id);
+            })->where('status', '!=', 'completed')->count();
         }
-        return view('pages.notifications', compact('statuses'));
+        return view('pages.notifications', compact('statuses', 'jumlahProgres'));
     }
 }

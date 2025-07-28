@@ -111,7 +111,17 @@ class ReportRepository implements ReportRepositoryInterface {
     public function updateReport(array $data, int $id)
     {
         $report = $this->getReportById($id);
-        
+
+        // Mapping report_category_id ke level prioritas (sama seperti createReport)
+        $priorityMap = [
+            1 => self::PRIORITY_HIGH,   // Kategori Keamanan
+            2 => self::PRIORITY_MEDIUM, // Kategori Infrastruktur
+            3 => self::PRIORITY_LOW     // Kategori Administrasi
+        ];
+        if (isset($data['report_category_id'])) {
+            $categoryId = $data['report_category_id'];
+            $data['urgency_level'] = $priorityMap[$categoryId] ?? self::PRIORITY_LOW;
+        }
         return $report->update($data);
     }
 

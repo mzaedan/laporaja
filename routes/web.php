@@ -18,6 +18,8 @@ Route::get('/reports',[UserReportController::class, 'index'])->name('report.inde
 Route::get('/report/{code}', [UserReportController::class, 'show'])->name('report.show');
 
 Route::middleware(['auth'])->group(function(){
+    // Route detail laporan admin
+    Route::get('/admin/laporan/{id}', [\App\Http\Controllers\Admin\DashboardController::class, 'show'])->name('admin.laporan.show');
     Route::get('/take-report',[UserReportController::class, 'take'])->name('report.take');
     Route::get('/preview',[UserReportController::class, 'preview'])->name('report.preview');
     Route::get('/create-report',[UserReportController::class, 'create'])->name('report.create');

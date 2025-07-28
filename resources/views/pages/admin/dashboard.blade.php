@@ -16,7 +16,7 @@
                                 Status: <span class="badge bg-info text-dark">{{ $laporan->latestReportStatus->status }}</span>,
                                 Tanggal Laporan: {{ $laporan->created_at->format('d-m-Y') }}
                                 <br>
-                                <a href="#" class="btn btn-sm btn-outline-primary mt-1">Lihat Detail</a>
+                                <a href="{{ route('admin.report.show', $laporan->id) }}" class="btn btn-sm btn-outline-primary mt-1">Lihat Detail</a>
                             </li>
                         @endforeach
                     </ul>

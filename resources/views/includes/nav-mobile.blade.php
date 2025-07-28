@@ -18,7 +18,9 @@
     <div></div>
     <a href="{{ route('notifications') }}" class="{{ request()->is('notifications') ? 'active' : ''  }}" id="notification-menu">
         <i class="fas fa-bell"></i>
-        <span id="notification-count" style="display:none; color:red" class="notification-badge">2</span>
+        <span id="notification-count" style="{{ (isset($jumlahProgres) && $jumlahProgres > 0) ? '' : 'display:none;' }} color:red" class="notification-badge">
+    {{ $jumlahProgres ?? '' }}
+</span>
         Notifikasi
     </a>
     @auth
@@ -35,6 +37,14 @@
 </nav>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    var notifMenu = document.getElementById('notification-menu');
+    var notifCount = document.getElementById('notification-count');
+    if (notifMenu && notifCount) {
+        notifMenu.addEventListener('click', function() {
+            notifCount.style.display = 'none';
+        });
+    }
+
     // Ganti URL di bawah ini dengan route yang mengembalikan jumlah notifikasi
     fetch('/api/unread-notification-count')
         .then(response => response.json())
