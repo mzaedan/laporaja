@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
     
     Route::get('profile/',[ProfileController::class, 'index'])->name('profile');
+    Route::post('profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.change-password');
     
     // Perbaikan: Konsistensi parameter dan pindahkan feedback.success ke dalam auth middleware
     Route::get('/feedback/{report}', [\App\Http\Controllers\FeedbackController::class, 'form'])->name('feedback.form');

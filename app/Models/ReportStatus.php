@@ -13,7 +13,8 @@ class ReportStatus extends Model
         'report_id',
         'image',
         'status',
-        'description'
+        'description',
+        'is_read'
     ];
 
     public function report()
