@@ -12,7 +12,7 @@ class DashboardController extends Controller
         // Ambil laporan yang:
         // - status terakhirnya 'in_process' atau 'delivered' lebih dari 2 hari
         // - ATAU termasuk kategori urgent (report_category_id = 1)
-        // - TIDAK termasuk status 'completed'
+        // - TIDAK termasuk status 'completed' dan 'rejected'
         $notifikasi = \App\Models\Report::where(function($query) {
             $query->whereHas('latestReportStatus', function($q) {
                 $q->whereIn('status', ['in_process', 'delivered'])
@@ -21,7 +21,7 @@ class DashboardController extends Controller
             ->orWhere('report_category_id', 1);
         })
         ->whereHas('latestReportStatus', function($q) {
-            $q->whereNotIn('status', ['completed']);
+            $q->whereNotIn('status', ['completed', 'rejected']);
         })
         ->with(['latestReportStatus'])
         ->get();
