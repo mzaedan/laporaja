@@ -17,6 +17,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/reports',[UserReportController::class, 'index'])->name('report.index');
 Route::get('/report/{code}', [UserReportController::class, 'show'])->name('report.show');
 
+// Public Dashboard Routes
+Route::get('/dashboard', [\App\Http\Controllers\PublicDashboardController::class, 'index'])->name('public.dashboard');
+Route::get('/api/dashboard-data', [\App\Http\Controllers\PublicDashboardController::class, 'getDashboardData'])->name('api.dashboard.data');
+Route::get('/api/recent-reports', [\App\Http\Controllers\PublicDashboardController::class, 'getRecentReports'])->name('api.recent.reports');
+
 Route::middleware(['auth'])->group(function(){
     // Route detail laporan admin
     Route::get('/admin/laporan/{id}', [\App\Http\Controllers\Admin\DashboardController::class, 'show'])->name('admin.laporan.show');

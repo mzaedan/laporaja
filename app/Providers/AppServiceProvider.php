@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\ReportStatus;
 use App\Observers\ReportStatusObserver;
 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**

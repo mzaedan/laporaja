@@ -62,6 +62,14 @@
                 </div>
                 <i class="fa-solid fa-chevron-right"></i>
             </a>
+            <a href="{{ route('public.dashboard') }}"
+                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-3">
+                    <i class="fa-solid fa-chart-bar"></i>
+                    <p class="fw-light">Dashboard Statistik</p>
+                </div>
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
         </div>
 
         <div class="mt-4">
