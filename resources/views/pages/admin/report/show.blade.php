@@ -84,9 +84,30 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td> 
                                     @if ($status->image)
-                                        <img src="{{ asset('storage/' . $status->image) }}" alt="image" width="100">
+                                   @php
+                                        $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
+                                        $filePath = $status->image;
+                                        $isImage = false;
+                                        $fileUrl = $filePath ? asset('storage/' . $filePath) : null;
+                                        if ($filePath) {
+                                            $ext = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+                                            $isImage = in_array($ext, $imageExtensions);
+                                        }
+                                    @endphp
+                                    @if ($filePath)
+                                        @if ($isImage)
+                                            <img src="{{ $fileUrl }}" alt="image" width="100">
+                                        @else
+                                            <a href="{{ $fileUrl }}" target="_blank" style="text-decoration:none;">
+                                                <i class="fa fa-file-alt fa-2x text-secondary"></i>
+                                                <span class="d-block small">Download Bukti</span>
+                                            </a>
+                                        @endif
                                     @else
-                                    Bukti Belum Tersedia
+                                        Bukti Belum Tersedia
+                                    @endif
+                                    @else
+                                        Bukti Belum Tersedia
                                     @endif
                                 </td>
                                 <td>{{ $status->status }}</td>
