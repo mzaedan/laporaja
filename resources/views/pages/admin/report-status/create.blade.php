@@ -42,7 +42,7 @@
                        Completed
                     </option>
 
-                    <option value="completed" {{ old('status') == 'rejected' ? 'selected' : '' }}>
+                    <option value="rejected" {{ old('status') == 'rejected' ? 'selected' : '' }}>
                        Rejected
                     </option>
                 </select>
