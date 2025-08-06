@@ -8,6 +8,10 @@
 
     <!-- PWA  -->
     <meta name="theme-color" content="#000000"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @auth
+    <meta name="user-id" content="{{ Auth::id() }}">
+    @endauth
     <link rel="manifest" href="{{ asset('manifest.json') }}">
     <link rel="apple-touch-icon" href="{{ asset('favicon.ico') }}">
 
@@ -23,6 +27,14 @@
 
    @include('includes.nav-mobile')
 
+    <!-- Pusher Configuration -->
+    @env('local')
+    <script>
+        window.PUSHER_APP_KEY = '{{ config('broadcasting.connections.pusher.key') }}';
+        window.PUSHER_APP_CLUSTER = '{{ config('broadcasting.connections.pusher.options.cluster') }}';
+    </script>
+    @endenv
+    
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
         crossorigin="anonymous"></script>
@@ -30,6 +42,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     
+    @vite(['resources/js/pusher.js'])
     @yield('scripts')
 
     <script>

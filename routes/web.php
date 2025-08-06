@@ -1,6 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+
+// Include test routes
+if (app()->environment('local')) {
+    require __DIR__.'/test-pusher.php';
+    require __DIR__.'/test-notification.php';
+}
 use App\Http\Controllers\Admin\ReportCategoryController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\ReportStatusController;
