@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Report;
+use App\Models\ReportStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -12,7 +14,29 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        return view('pages.app.profile');
+        $user = Auth::user();
+        
+        // Get all reports with their latest status
+        $reports = Report::where('resident_id', $user->resident->id)
+            ->with('latestReportStatus')
+            ->get();
+            
+        // Count active reports (delivered or in_process)
+        $activeReportsCount = $reports->filter(function($report) {
+            return $report->latestReportStatus && 
+                   in_array($report->latestReportStatus->status, ['delivered', 'in_process']);
+        })->count();
+        
+        // Count completed reports (completed or rejected)
+        $completedReportsCount = $reports->filter(function($report) {
+            return $report->latestReportStatus && 
+                   in_array($report->latestReportStatus->status, ['completed', 'rejected']);
+        })->count();
+
+        return view('pages.app.profile', [
+            'activeReportsCount' => $activeReportsCount,
+            'completedReportsCount' => $completedReportsCount
+        ]);
     }
 
     public function changePassword(Request $request)
