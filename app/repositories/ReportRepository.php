@@ -85,6 +85,18 @@ class ReportRepository implements ReportRepositoryInterface {
 
         return Report::where('report_category_id',$category->id)->get();
     }
+    
+    public function getReportsByStatus(string $status)
+    {
+        return Report::whereHas('reportStatuses', function($query) use ($status) {
+            $query->where('status', $status)
+                  ->whereIn('id', function($subquery) {
+                      $subquery->selectRaw('MAX(id)')
+                              ->from('report_statuses')
+                              ->groupBy('report_id');
+                  });
+        })->get();
+    }
 
     public function createReport(array $data)
     {

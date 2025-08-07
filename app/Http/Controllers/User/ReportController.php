@@ -22,13 +22,17 @@ class ReportController extends Controller
 
     public function index(Request $request)
     {
-        if($request->category){
+        $status = $request->status;
+        
+        if($request->category) {
             $reports = $this->reportRepository->getReportsByCategories($request->category);
-        }else{
+        } else if($status) {
+            $reports = $this->reportRepository->getReportsByStatus($status);
+        } else {
             $reports = $this->reportRepository->getAllReports();
         }
         
-        return view('pages.app.report.index', compact('reports'));
+        return view('pages.app.report.index', compact('reports', 'status'));
     }
 
     public function myReport(Request $request)

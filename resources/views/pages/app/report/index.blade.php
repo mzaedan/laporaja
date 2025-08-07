@@ -7,10 +7,19 @@
         <div class="d-flex justify-content-between align-items-center">
             <p class="text-muted">{{ $reports->count(); }} List Pengaduan</p>
 
-            <button class="btn btn-filter" type="button">
-                <i class="fa-solid fa-filter me-2"></i>
-                Filter
-            </button>
+            <div class="dropdown">
+                <button class="btn btn-filter dropdown-toggle" type="button" id="statusFilter" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-filter me-2"></i>
+                    Filter Status
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="statusFilter">
+                    <li><a class="dropdown-item {{ !request()->status ? 'active' : '' }}" href="{{ request()->fullUrlWithQuery(['status' => '']) }}">Semua Status</a></li>
+                    <li><a class="dropdown-item {{ request()->status === 'delivered' ? 'active' : '' }}" href="{{ request()->fullUrlWithQuery(['status' => 'delivered']) }}">Terkirim</a></li>
+                    <li><a class="dropdown-item {{ request()->status === 'in_process' ? 'active' : '' }}" href="{{ request()->fullUrlWithQuery(['status' => 'in_process']) }}">Diproses</a></li>
+                    <li><a class="dropdown-item {{ request()->status === 'completed' ? 'active' : '' }}" href="{{ request()->fullUrlWithQuery(['status' => 'completed']) }}">Selesai</a></li>
+                    <li><a class="dropdown-item {{ request()->status === 'rejected' ? 'active' : '' }}" href="{{ request()->fullUrlWithQuery(['status' => 'rejected']) }}">Ditolak</a></li>
+                </ul>
+            </div>
         </div>
         @if (request()->category)
             <p>Kategori {{ request()->category }}</p>
