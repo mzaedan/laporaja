@@ -147,12 +147,12 @@ class ReportRepository implements ReportRepositoryInterface {
     public function getPrioritizedReports()
     {
         return Report::whereHas('reportStatuses', function($query) {
-                $query->whereIn('id', function($subquery) {
-                    $subquery->selectRaw('MAX(id)')
-                            ->from('report_statuses')
-                            ->where('status', '!=', 'selesai')
-                            ->groupBy('report_id');
-                });
+                $query->whereIn('status', ['delivered', 'in_process'])
+                    ->whereIn('id', function($subquery) {
+                        $subquery->selectRaw('MAX(id)')
+                                ->from('report_statuses')
+                                ->groupBy('report_id');
+                    });
             })
             ->selectRaw('*, 
                 LEAST(?, urgency_level + (DATEDIFF(NOW(), created_at) * ?)) as effective_priority', 
@@ -202,5 +202,15 @@ class ReportRepository implements ReportRepositoryInterface {
 
         $effectivePriority = $this->calculateEffectivePriority($report);
         return $this->updateReportUrgency($reportId, $effectivePriority);
+    }
+
+    public function getCompletedReports()
+    {
+        return Report::with(['reportCategory', 'resident.user', 'latestStatus'])
+            ->whereHas('latestStatus', function($query) {
+                $query->whereIn('status', ['completed', 'rejected']);
+            })
+            ->orderBy('updated_at', 'desc')
+            ->get();
     }
 }

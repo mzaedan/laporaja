@@ -52,4 +52,9 @@ class Report extends Model
         return $this->hasOne(ReportStatus::class)->latestOfMany();
     }
 
+    public function latestStatus()
+    {
+        return $this->hasOne(ReportStatus::class)->latestOfMany();
+    }
+
 }

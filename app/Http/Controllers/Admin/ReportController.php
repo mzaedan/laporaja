@@ -144,4 +144,13 @@ class ReportController extends Controller
 
         return Excel::download(new ReportsExport($month, $year), $filename);
     }
+
+    /**
+     * Display a listing of completed reports.
+     */
+    public function completed()
+    {
+        $reports = $this->reportRepository->getCompletedReports();
+        return view('pages.admin.report.completed', compact('reports'));
+    }
 }

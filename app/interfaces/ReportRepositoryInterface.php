@@ -28,6 +28,8 @@ interface ReportRepositoryInterface {
     public function getPrioritizedReports();
 
     public function updateReportUrgency(int $reportId, int $urgencyLevel);
+
+    public function getCompletedReports();
 }
 
 ?>

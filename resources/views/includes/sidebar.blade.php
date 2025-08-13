@@ -19,12 +19,23 @@
         </a>
     </li>
 
-    <!-- Nav Item - Tables -->
-    <li class="nav-item {{ request()->is('admin/report') || request()->is('admin/report/create') || request()->is('admin/report/*/edit') || request()->is('admin/report/*') && !request()->is('admin/report-category*') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.report.index') }}">
+    <!-- Nav Item - Data Laporan Dropdown -->
+    <li class="nav-item {{ request()->is('admin/report*') && !request()->is('admin/report-category*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReport"
+            aria-expanded="true" aria-controls="collapseReport">
             <i class="fas fa-fw fa-table"></i>
             <span>Data Laporan</span>
         </a>
+        <div id="collapseReport" class="collapse" aria-labelledby="headingReport"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Menu Laporan:</h6>
+                <a class="collapse-item {{ request()->is('admin/report') || request()->is('admin/report/create') ? 'active' : '' }}" 
+                   href="{{ route('admin.report.index') }}">Laporan Aktif</a>
+                <a class="collapse-item {{ request()->is('admin/report/completed') ? 'active' : '' }}" 
+                   href="{{ route('admin.report.completed') }}">Laporan Selesai</a>
+            </div>
+        </div>
     </li>
 
     <li class="nav-item {{ request()->is('admin/report-category*') ? 'active' : '' }}">
