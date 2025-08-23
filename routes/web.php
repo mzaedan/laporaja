@@ -17,11 +17,13 @@ use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\NotificationController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\ReportController as UserReportController;
+use App\Http\Controllers\HelpController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/reports',[UserReportController::class, 'index'])->name('report.index');
 Route::get('/report/{code}', [UserReportController::class, 'show'])->name('report.show');
+Route::get('/help', [HelpController::class, 'index'])->name('help');
 
 // Public Dashboard Routes
 Route::get('/dashboard', [\App\Http\Controllers\PublicDashboardController::class, 'index'])->name('public.dashboard');
