@@ -8,6 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @auth
+    <meta name="user-id" content="{{ Auth::id() }}">
+    @endauth
 
     <title>@yield('title')</title>
 
@@ -98,6 +104,16 @@
 
     <!-- Leaflet for interactive maps -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Pusher Configuration -->
+    @env('local')
+    <script>
+        window.PUSHER_APP_KEY = '{{ config('broadcasting.connections.pusher.key') }}';
+        window.PUSHER_APP_CLUSTER = '{{ config('broadcasting.connections.pusher.options.cluster') }}';
+    </script>
+    @endenv
+    
+    @vite(['resources/js/pusher.js'])
 
     @yield('scripts')
 

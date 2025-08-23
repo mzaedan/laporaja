@@ -47,7 +47,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Ganti URL di bawah ini dengan route yang mengembalikan jumlah notifikasi
     fetch('/api/unread-notification-count')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             const count = data.count || 0;
             const badge = document.getElementById('notification-count');
@@ -57,13 +62,33 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 badge.style.display = 'none';
             }
+        })
+        .catch(error => {
+            console.warn('Failed to fetch notification count:', error);
+            // Hide the badge on error
+            const badge = document.getElementById('notification-count');
+            if (badge) {
+                badge.style.display = 'none';
+            }
         });
 
     document.getElementById('notification-menu').addEventListener('click', function() {
         const badge = document.getElementById('notification-count');
         badge.style.display = 'none';
-        // (Opsional) Tandai notifikasi sebagai sudah dibaca di backend
-        fetch('/api/mark-notifications-read', { method: 'POST' });
+        
+        // Mark notifications as read in backend
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+        if (csrfToken) {
+            fetch('/api/mark-notifications-read', { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            }).catch(error => {
+                console.warn('Failed to mark notifications as read:', error);
+            });
+        }
     });
 });
 </script>

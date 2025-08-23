@@ -1,8 +1,6 @@
 const CACHE_NAME = "laporaja-v1";
 const urlsToCache = [
     "/",
-    "/css/app.css",
-    "/js/app.js",
     "/favicon.ico",
     "/manifest.json",
 ];
@@ -10,12 +8,29 @@ const urlsToCache = [
 self.addEventListener("install", (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
-            return cache.addAll(urlsToCache);
+            // Use Promise.allSettled to handle files that might not exist
+            return Promise.allSettled(
+                urlsToCache.map(url => 
+                    fetch(url).then(response => {
+                        if (response.ok) {
+                            return cache.put(url, response);
+                        }
+                        console.warn(`Failed to cache ${url}: ${response.status}`);
+                    }).catch(error => {
+                        console.warn(`Failed to fetch ${url}:`, error);
+                    })
+                )
+            );
         })
     );
 });
 
 self.addEventListener("fetch", (event) => {
+    // Only handle GET requests for caching
+    if (event.request.method !== 'GET') {
+        return;
+    }
+    
     event.respondWith(
         caches.match(event.request).then((response) => {
             if (response) {
@@ -34,6 +49,10 @@ self.addEventListener("fetch", (event) => {
                     cache.put(event.request, responseToCache);
                 });
                 return response;
+            }).catch((error) => {
+                console.warn('Fetch failed:', error);
+                // Return a fallback response or let it fail silently
+                return new Response('Network error', { status: 503 });
             });
         })
     );
