@@ -147,7 +147,7 @@ class ReportRepository implements ReportRepositoryInterface {
     public function getPrioritizedReports()
     {
         return Report::whereHas('reportStatuses', function($query) {
-                $query->whereIn('status', ['delivered', 'in_process'])
+                $query->where('status', 'delivered')
                     ->whereIn('id', function($subquery) {
                         $subquery->selectRaw('MAX(id)')
                                 ->from('report_statuses')
@@ -209,6 +209,21 @@ class ReportRepository implements ReportRepositoryInterface {
         return Report::with(['reportCategory', 'resident.user', 'latestStatus'])
             ->whereHas('latestStatus', function($query) {
                 $query->whereIn('status', ['completed', 'rejected']);
+            })
+            ->orderBy('updated_at', 'desc')
+            ->get();
+    }
+
+    public function getInProcessReports()
+    {
+        return Report::with(['reportCategory', 'resident.user', 'reportStatuses'])
+            ->whereHas('reportStatuses', function($query) {
+                $query->where('status', 'in_process')
+                      ->whereIn('id', function($subquery) {
+                          $subquery->selectRaw('MAX(id)')
+                                  ->from('report_statuses')
+                                  ->groupBy('report_id');
+                      });
             })
             ->orderBy('updated_at', 'desc')
             ->get();

@@ -153,4 +153,13 @@ class ReportController extends Controller
         $reports = $this->reportRepository->getCompletedReports();
         return view('pages.admin.report.completed', compact('reports'));
     }
+
+    /**
+     * Display a listing of in-process reports.
+     */
+    public function inProcess()
+    {
+        $reports = $this->reportRepository->getInProcessReports();
+        return view('pages.admin.report.in-process', compact('reports'));
+    }
 }

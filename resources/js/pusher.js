@@ -316,9 +316,7 @@ window.testNotifications = function() {
     
     console.log('🔔 Testing browser notification...');
     showNotification(testData);
-    
-    console.log('📱 Testing in-page notification...');
-    showInPageNotification(testData);
+
 };
 
 // Enhanced debugging functions with health monitoring
@@ -421,7 +419,6 @@ function startHeartbeat() {
 
 // Make functions globally accessible for debugging
 window.showNotification = showNotification;
-window.showInPageNotification = showInPageNotification;
 
 // Global error handler for better debugging
 window.addEventListener('error', function(event) {

@@ -62,6 +62,7 @@
                         <th style="text-align: center;">Pelapor</th>
                         <th style="text-align: center;">Kategori Laporan</th>
                         <th style="text-align: center;">Judul Laporan</th>
+                        <th style="width: 120px; text-align: center;">Waktu Masuk</th>
                         <th style="width: 80px; text-align: center;">Urgensi</th>
                         <th style="width: 85px; text-align: center;">Status</th>
                         <th style="width: 120px; text-align: center;">Aksi</th>
@@ -75,6 +76,7 @@
                             <td>{{ $report->resident->user->name ?? ''}}</td>
                             <td>{{ $report->reportCategory->name ?? ''}}</td>
                             <td>{{ $report->title }}</td>
+                            <td style="text-align: center; vertical-align: middle;">{{ $report->created_at->format('d/m/Y H:i:s') }}</td>
                             <td style="text-align: center; vertical-align: middle;">
                                 @if($report->urgency_level == 3)
                                     <span class="badge badge-danger" style="font-size: 0.75rem;">Tinggi</span>

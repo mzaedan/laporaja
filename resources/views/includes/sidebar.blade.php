@@ -32,6 +32,8 @@
                 <h6 class="collapse-header">Menu Laporan:</h6>
                 <a class="collapse-item {{ request()->is('admin/report') || request()->is('admin/report/create') ? 'active' : '' }}" 
                    href="{{ route('admin.report.index') }}">Laporan Aktif</a>
+                <a class="collapse-item {{ request()->is('admin/report/in-process') ? 'active' : '' }}" 
+                   href="{{ route('admin.report.in-process') }}">Laporan Proses</a>
                 <a class="collapse-item {{ request()->is('admin/report/completed') ? 'active' : '' }}" 
                    href="{{ route('admin.report.completed') }}">Laporan Selesai</a>
             </div>

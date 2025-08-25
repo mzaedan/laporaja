@@ -30,6 +30,8 @@ interface ReportRepositoryInterface {
     public function updateReportUrgency(int $reportId, int $urgencyLevel);
 
     public function getCompletedReports();
+
+    public function getInProcessReports();
 }
 
 ?>
