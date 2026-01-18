@@ -46,17 +46,67 @@ class ReportStatusController extends Controller
      */
     public function store(StoreReportStatusRequest $request)
     {
-        $data = $request->validated();
+        try {
+            // Log all request data for debugging
+            \Log::info('Report Status Store - Full Request Data:', [
+                'all_data' => $request->all(),
+                'validated_data' => $request->validated(),
+                'method' => $request->method(),
+                'url' => $request->url(),
+                'headers' => $request->headers->all()
+            ]);
+            
+            $data = $request->validated();
+            
+            // Log the incoming data for debugging
+            \Log::info('Report Status Store - Validated Data:', $data);
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('assets/report-status/image', 'public');
+            if ($request->hasFile('image')) {
+                $imageFile = $request->file('image');
+                \Log::info('Report Status Store - File Info:', [
+                    'original_name' => $imageFile->getClientOriginalName(),
+                    'size' => $imageFile->getSize(),
+                    'mime_type' => $imageFile->getMimeType()
+                ]);
+                
+                $data['image'] = $imageFile->store('assets/report-status/image', 'public');
+                \Log::info('Report Status Store - Image uploaded:', ['image_path' => $data['image']]);
+            }
+
+            $reportStatus = $this->reportStatusRepository->createReportStatus($data);
+            
+            \Log::info('Report Status Store - Created successfully:', [
+                'status_id' => $reportStatus->id,
+                'report_id' => $reportStatus->report_id,
+                'status' => $reportStatus->status,
+                'description' => $reportStatus->description
+            ]);
+
+            Swal::toast('Data Progres Laporan Berhasil Ditambahkan', 'success')->timerProgressBar();
+
+            return redirect()->route('admin.report.show', $request->report_id)->with('success', 'Report status created successfully!');
+            
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            \Log::error('Report Status Store - Validation Error:', [
+                'errors' => $e->errors(),
+                'request_data' => $request->all()
+            ]);
+            
+            return back()->withErrors($e->errors())->withInput();
+            
+        } catch (\Exception $e) {
+            \Log::error('Report Status Store - General Error:', [
+                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
+                'request_data' => $request->all()
+            ]);
+            
+            Swal::toast('Terjadi kesalahan saat menyimpan data: ' . $e->getMessage(), 'error')->timerProgressBar();
+            
+            return back()->withInput()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage()]);
         }
-
-        $this->reportStatusRepository->createReportStatus($data);
-
-        Swal::toast('Data Progres Laporan Berhasil Ditambahkan', 'success')->timerProgressBar();
-
-        return redirect()->route('admin.report.show', $request->report_id);
     }
 
     /**

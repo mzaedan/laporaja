@@ -6,8 +6,10 @@ use App\Interfaces\ReportRepositoryInterface;
 use App\Models\Report;
 use App\Models\ReportCategory;
 use App\Models\User;
+use App\Services\ReportPriorityScoringService;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Repository untuk manajemen laporan dengan fitur Priority Queue dan Aging.
@@ -24,6 +26,13 @@ class ReportRepository implements ReportRepositoryInterface {
     private const PRIORITY_LOW = 1;    // Administrasi
     // Default aging factor (peningkatan prioritas per hari)
     private const AGING_FACTOR = 0.1;
+
+    protected ReportPriorityScoringService $priorityService;
+
+    public function __construct(ReportPriorityScoringService $priorityService)
+    {
+        $this->priorityService = $priorityService;
+    }
     /**
      * Override manual prioritas laporan (misal: oleh admin/operator)
      * @param int $reportId
@@ -71,7 +80,14 @@ class ReportRepository implements ReportRepositoryInterface {
 
     public function getReportById(int $id)
     {
-        return Report::with(['feedbacks.user', 'reportStatuses'])->where('id', $id)->first();
+        // Clear any potential query cache and force fresh data retrieval
+        \DB::purge(); // Clear any connection-level caching
+        
+        return Report::with(['feedbacks.user', 'reportStatuses' => function($query) {
+            $query->latest();
+        }])
+        ->where('id', $id)
+        ->first();
     }
 
     public function getReportByCode(string $code)
@@ -162,6 +178,44 @@ class ReportRepository implements ReportRepositoryInterface {
             ->get();
     }
 
+    /**
+     * Update priority scoring for a report
+     * @param int $reportId
+     * @param int|null $categoryScore
+     * @param int $communityImpact
+     * @param int $damageLevel
+     * @param int $timeUrgency
+     * @param string|null $notes
+     * @return bool
+     */
+    public function updateReportPriorityScoring(
+        int $reportId,
+        ?int $categoryScore,
+        int $communityImpact,
+        int $damageLevel,
+        int $timeUrgency,
+        ?string $notes = null
+    ): bool {
+        $report = $this->getReportById($reportId);
+        if (!$report) {
+            return false;
+        }
+
+        try {
+            $this->priorityService->updateReportPriorityScore(
+                $report,
+                $categoryScore,
+                $communityImpact,
+                $damageLevel,
+                $timeUrgency,
+                $notes
+            );
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
     public function updateReportUrgency(int $reportId, int $urgencyLevel)
     {
         $report = $this->getReportById($reportId);
@@ -227,5 +281,38 @@ class ReportRepository implements ReportRepositoryInterface {
             })
             ->orderBy('updated_at', 'desc')
             ->get();
+    }
+
+    /**
+     * Get reports filtered by priority score and other criteria
+     */
+    public function getReportsByPriorityScore(array $filters = [])
+    {
+        $query = Report::with(['reportCategory', 'resident.user', 'reportStatuses']);
+
+        // Filter by priority level
+        if (isset($filters['priority_level'])) {
+            $query->byPriorityLevel($filters['priority_level']);
+        }
+
+        // Filter by category
+        if (isset($filters['category_id'])) {
+            $query->where('report_category_id', $filters['category_id']);
+        }
+
+        // Filter by status
+        if (isset($filters['status'])) {
+            $query->whereHas('reportStatuses', function($statusQuery) use ($filters) {
+                $statusQuery->where('status', $filters['status'])
+                           ->whereIn('id', function($subquery) {
+                               $subquery->selectRaw('MAX(id)')
+                                       ->from('report_statuses')
+                                       ->groupBy('report_id');
+                           });
+            });
+        }
+
+        // Order by effective priority (including aging factor)
+        return $query->orderByEffectivePriority()->get();
     }
 }

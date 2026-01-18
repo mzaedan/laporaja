@@ -8,34 +8,43 @@ use App\Http\Requests\UpdateReportRequest;
 use App\Interfaces\ReportCategoryRepositoryInterface;
 use App\Interfaces\ReportRepositoryInterface;
 use App\Interfaces\ResidentRepositoryInterface;
+use App\Services\ReportPriorityScoringService;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert as Swal;
 use App\Exports\ReportsExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Cache;
 
 class ReportController extends Controller
 {
     private ReportRepositoryInterface $reportRepository;
     private ReportCategoryRepositoryInterface $reportCategoryRepository;
     private ResidentRepositoryInterface $residentRepository;
+    private ReportPriorityScoringService $priorityScoringService;
 
     public function __construct(
         ReportRepositoryInterface $reportRepository,
         ReportCategoryRepositoryInterface $reportCategoryRepository,
-        ResidentRepositoryInterface $residentRepository
+        ResidentRepositoryInterface $residentRepository,
+        ReportPriorityScoringService $priorityScoringService
     ) {
         $this->reportRepository = $reportRepository;
         $this->reportCategoryRepository = $reportCategoryRepository;
         $this->residentRepository = $residentRepository;
+        $this->priorityScoringService = $priorityScoringService;
     }
 
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource (only delivered reports).
      */
     public function index()
     {
-        $reports = $this->reportRepository->getPrioritizedReports();
+        // Clear cache to ensure fresh data
+        \Cache::flush();
+        
+        // Get reports with 'delivered' status ordered by effective priority score
+        $reports = $this->reportRepository->getReportsByPriorityScore(['status' => 'delivered']);
 
         return view('pages.admin.report.index', compact('reports'));
     }
@@ -64,9 +73,21 @@ class ReportController extends Controller
             $data['image'] = $request->file('image')->store('assets/report/image', 'public');
         }
 
-        $this->reportRepository->createReport($data);
+        $report = $this->reportRepository->createReport($data);
+        
+        // Handle priority scoring if provided
+        if ($request->filled(['community_impact_score', 'damage_level_score', 'time_urgency_score'])) {
+            $this->priorityScoringService->updateReportPriorityScore(
+                $report,
+                $request->category_score, // Can be null for auto-calculation
+                $request->community_impact_score,
+                $request->damage_level_score,
+                $request->time_urgency_score,
+                $request->scoring_notes
+            );
+        }
 
-        Swal::toast('Data Kategori Berhasil Ditambahkan', 'success')->timerProgressBar();
+        Swal::toast('Data Laporan Berhasil Ditambahkan', 'success')->timerProgressBar();
 
         return redirect()->route('admin.report.index');
     }
@@ -76,9 +97,15 @@ class ReportController extends Controller
      */
     public function show(int $id)
     {
+        // Force fresh data retrieval by clearing any potential caches
+        \Cache::flush();
+        
         $report = $this->reportRepository->getReportById($id);
+        
+        // Add timestamp to ensure browser doesn't cache this view
+        $timestamp = time();
 
-        return view('pages.admin.report.show', compact('report'));
+        return view('pages.admin.report.show', compact('report', 'timestamp'));
     }
 
     /**
@@ -106,6 +133,19 @@ class ReportController extends Controller
         }
 
         $this->reportRepository->updateReport($data, $id);
+        
+        // Handle priority scoring if provided
+        if ($request->filled(['community_impact_score', 'damage_level_score', 'time_urgency_score'])) {
+            $report = $this->reportRepository->getReportById($id);
+            $this->priorityScoringService->updateReportPriorityScore(
+                $report,
+                $request->category_score, // Can be null for auto-calculation
+                $request->community_impact_score,
+                $request->damage_level_score,
+                $request->time_urgency_score,
+                $request->scoring_notes
+            );
+        }
 
         Swal::toast('Data Laporan Berhasil Diupdate', 'success')->timerProgressBar();
 
@@ -150,7 +190,20 @@ class ReportController extends Controller
      */
     public function completed()
     {
-        $reports = $this->reportRepository->getCompletedReports();
+        // Clear cache to ensure fresh data
+        \Cache::flush();
+        
+        // Get reports with 'completed' and 'rejected' status ordered by effective priority score
+        $completedReports = $this->reportRepository->getReportsByPriorityScore(['status' => 'completed']);
+        $rejectedReports = $this->reportRepository->getReportsByPriorityScore(['status' => 'rejected']);
+        
+        // Combine both collections and sort by effective priority
+        $reports = $completedReports->merge($rejectedReports)
+            ->sortByDesc(function($report) {
+                return $report->hasPriorityScoring() ? $report->effective_priority_score : 0;
+            })
+            ->values(); // Reset array keys
+            
         return view('pages.admin.report.completed', compact('reports'));
     }
 
@@ -159,7 +212,11 @@ class ReportController extends Controller
      */
     public function inProcess()
     {
-        $reports = $this->reportRepository->getInProcessReports();
+        // Clear cache to ensure fresh data
+        \Cache::flush();
+        
+        // Get reports with 'in_process' status ordered by effective priority score
+        $reports = $this->reportRepository->getReportsByPriorityScore(['status' => 'in_process']);
         return view('pages.admin.report.in-process', compact('reports'));
     }
 }

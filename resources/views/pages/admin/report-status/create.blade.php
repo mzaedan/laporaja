@@ -14,6 +14,23 @@
         <h6 class="m-0 font-weight-bold text-primary">Tambah Data Progres Laporan {{ $report->code }}</h6>
     </div>
     <div class="card-body">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <h5>Terjadi Kesalahan:</h5>
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        
         <form action="{{ route('admin.report-status.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="report_id" value="{{ $report->id }}">
@@ -55,7 +72,7 @@
 
             <div class="form-group">
                 <label for="description">Deskripsi</label>
-                <textarea type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" value="{{ old('description') }}" rows="5">{{ old('description' )}}</textarea>
+                <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="5" placeholder="Masukkan deskripsi progress laporan...">{{ old('description') }}</textarea>
                 <div class="invalid-feedback">
                     @error('description')
                         {{ $message }}

@@ -10,17 +10,17 @@
         <mxCell id="user-1" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Membuka Website&lt;br&gt;Pengaduan&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fillColor=#bbdefb;strokeColor=#1976d2;" parent="lane-user" vertex="1">
           <mxGeometry x="80" y="160" width="140" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="user-2" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Mengisi Form&lt;br&gt;Pengaduan&lt;/b&gt;&lt;/font&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=11;fillColor=#bbdefb;strokeColor=#1976d2;" parent="lane-user" vertex="1">
-          <mxGeometry x="80" y="260" width="140" height="60" as="geometry" />
-        </mxCell>
         <mxCell id="user-4" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Menerima Notifikasi&lt;br&gt;atau Lacak Aduan&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fillColor=#bbdefb;strokeColor=#1976d2;" parent="lane-user" vertex="1">
           <mxGeometry x="90" y="1260" width="140" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="TkkFKuVTol_qKiPYe6n6-1" value="" style="shape=ellipse;html=1;fillColor=#000000;strokeWidth=2;verticalLabelPosition=bottom;verticalAlignment=top;perimeter=ellipsePerimeter;strokeColor=#1A1A1A;" vertex="1" parent="lane-user">
+        <mxCell id="TkkFKuVTol_qKiPYe6n6-1" value="" style="shape=ellipse;html=1;fillColor=#000000;strokeWidth=2;verticalLabelPosition=bottom;verticalAlignment=top;perimeter=ellipsePerimeter;strokeColor=#1A1A1A;" parent="lane-user" vertex="1">
           <mxGeometry x="130" y="80" width="40" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="TkkFKuVTol_qKiPYe6n6-2" value="" style="html=1;shape=mxgraph.sysml.actFinal;strokeWidth=2;verticalLabelPosition=bottom;verticalAlignment=top;" vertex="1" parent="lane-user">
+        <mxCell id="TkkFKuVTol_qKiPYe6n6-2" value="" style="html=1;shape=mxgraph.sysml.actFinal;strokeWidth=2;verticalLabelPosition=bottom;verticalAlignment=top;" parent="lane-user" vertex="1">
           <mxGeometry x="135" y="1410" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="F2YYBnzOWDLqOBJ3CH3l-1" value="&lt;b style=&quot;font-size: 14px;&quot;&gt;Mengisi Form&lt;br&gt;Pengaduan&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;fillColor=#bbdefb;strokeColor=#1976d2;" vertex="1" parent="lane-user">
+          <mxGeometry x="85" y="260" width="140" height="60" as="geometry" />
         </mxCell>
         <mxCell id="lane-system" value="SISTEM (WEB PENGADUAN)" style="swimlane;startSize=40;html=1;fontSize=14;fontStyle=1;fillColor=#e8f5e8;strokeColor=#2e7d32;swimlaneFillColor=#f8fff8;" parent="1" vertex="1">
           <mxGeometry x="360" y="80" width="350" height="1510" as="geometry" />
@@ -131,15 +131,15 @@
             <mxPoint x="260" y="120" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="arrow-2" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="user-1" target="user-2" edge="1">
+        <mxCell id="arrow-2" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="user-1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="210" y="270" as="sourcePoint" />
-            <mxPoint x="260" y="220" as="targetPoint" />
+            <mxPoint x="210" y="340" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="arrow-4" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="user-2" target="system-1" edge="1">
+        <mxCell id="arrow-4" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" target="system-1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="170" y="510" as="sourcePoint" />
+            <mxPoint x="210" y="400" as="sourcePoint" />
             <mxPoint x="290" y="380" as="targetPoint" />
             <Array as="points">
               <mxPoint x="210" y="505" />

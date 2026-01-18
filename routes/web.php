@@ -142,6 +142,289 @@ if (app()->environment('local')) {
             'note' => 'Check Laravel logs for observer activity and browser for notifications'
         ]);
     })->name('create.real.status')->middleware('auth');
+    
+    // Test Priority Ordering in Admin Panel
+    Route::get('/test-priority-ordering', function () {
+        $reportRepo = app(\App\repositories\ReportRepository::class);
+        $reports = $reportRepo->getReportsByPriorityScore();
+        
+        $results = [
+            'total_reports' => $reports->count(),
+            'with_priority_scoring' => $reports->filter(function($report) { 
+                return $report->hasPriorityScoring(); 
+            })->count(),
+            'priority_distribution' => [
+                'tinggi' => $reports->filter(function($report) { 
+                    return $report->hasPriorityScoring() && $report->calculated_priority_score >= 3.8; 
+                })->count(),
+                'sedang' => $reports->filter(function($report) { 
+                    return $report->hasPriorityScoring() && $report->calculated_priority_score >= 2.6 && $report->calculated_priority_score < 3.8; 
+                })->count(),
+                'rendah' => $reports->filter(function($report) { 
+                    return $report->hasPriorityScoring() && $report->calculated_priority_score < 2.6; 
+                })->count(),
+                'belum_dinilai' => $reports->filter(function($report) { 
+                    return !$report->hasPriorityScoring(); 
+                })->count()
+            ],
+            'sample_reports' => $reports->take(5)->map(function($report) {
+                return [
+                    'code' => $report->code,
+                    'title' => $report->title,
+                    'category' => $report->reportCategory->name ?? 'N/A',
+                    'has_priority_scoring' => $report->hasPriorityScoring(),
+                    'priority_score' => $report->calculated_priority_score,
+                    'priority_level' => $report->hasPriorityScoring() ? $report->priority_level : 'Belum Dinilai',
+                    'effective_priority' => $report->hasPriorityScoring() ? $report->effective_priority_score : null,
+                    'created_at' => $report->created_at->format('d/m/Y H:i:s')
+                ];
+            })->toArray()
+        ];
+        
+        return response()->json(['success' => true, 'priority_ordering_test' => $results]);
+    })->name('test.priority.ordering');
+    
+    // Test 3-Category Priority Scoring System
+    Route::get('/test-3category-priority', function () {
+        $service = app(\App\Services\ReportPriorityScoringService::class);
+        
+        $testResults = [
+            'new_weights' => $service->getWeights(),
+            'category_scoring' => [
+                'keamanan_dan_keselamatan_publik' => $service->getCategoryScore('Keamanan dan Keselamatan Publik'),
+                'infrastruktur_dan_fasilitas_umum' => $service->getCategoryScore('Infrastruktur dan Fasilitas Umum'),
+                'administrasi_dan_layanan_umum' => $service->getCategoryScore('Administrasi dan Layanan Umum'),
+            ],
+            'sample_calculations' => [
+                'high_priority_emergency' => [
+                    'description' => 'Kebocoran Gas (Keamanan)',
+                    'scores' => [5, 4, 3, 5], // kategori, komunitas, kerusakan, urgensi
+                    'result' => $service->calculatePriorityScore(5, 4, 3, 5),
+                    'level' => $service->getPriorityLevel($service->calculatePriorityScore(5, 4, 3, 5))
+                ],
+                'medium_priority_infrastructure' => [
+                    'description' => 'Jalan Berlubang (Infrastruktur)',
+                    'scores' => [3, 3, 3, 3],
+                    'result' => $service->calculatePriorityScore(3, 3, 3, 3),
+                    'level' => $service->getPriorityLevel($service->calculatePriorityScore(3, 3, 3, 3))
+                ],
+                'low_priority_admin' => [
+                    'description' => 'Keluhan Administrasi',
+                    'scores' => [2, 1, 1, 1],
+                    'result' => $service->calculatePriorityScore(2, 1, 1, 1),
+                    'level' => $service->getPriorityLevel($service->calculatePriorityScore(2, 1, 1, 1))
+                ]
+            ],
+            'criteria_definitions' => $service->getCriteriaDefinitions()
+        ];
+        
+        return response()->json(['success' => true, 'new_3category_system' => $testResults]);
+    })->name('test.3category.priority');
+    
+    Route::get('/test-report-status-creation', function () {
+        // Find a report to test with
+        $report = \App\Models\Report::first();
+        
+        if (!$report) {
+            return response()->json(['error' => 'No reports found for testing']);
+        }
+        
+        // Test data
+        $testData = [
+            'report_id' => $report->id,
+            'status' => 'in_process',
+            'description' => 'Test progress created at ' . now()->format('Y-m-d H:i:s')
+        ];
+        
+        try {
+            // Test repository method directly
+            $repository = app(\App\Interfaces\ReportStatusRepositoryInterface::class);
+            $newStatus = $repository->createReportStatus($testData);
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Report status created successfully',
+                'data' => $newStatus,
+                'test_data' => $testData
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+        }
+    })->name('test.report.status.creation');
+    
+    Route::get('/test-report-status-form-full', function () {
+        $reports = \App\Models\Report::with('reportCategory')->take(10)->get();
+        return view('test-report-status', compact('reports'));
+    })->name('test.report.status.form.full');
+    
+    Route::get('/test-report-status-form/{reportId}', function ($reportId) {
+        $report = \App\Models\Report::findOrFail($reportId);
+        return view('pages.admin.report-status.create', compact('report'));
+    })->name('test.report.status.form');
+    
+    // Enhanced Priority Scoring Test Route
+    Route::get('/test-report-creation', function () {
+        try {
+            // Find an existing report to test with
+            $existingReport = \App\Models\Report::first();
+            
+            if (!$existingReport) {
+                return response()->json([
+                    'success' => false,
+                    'error' => 'No existing reports found to test with'
+                ]);
+            }
+            
+            // Test updating a report with priority scoring (this was the failing operation)
+            $reportRepository = app(\App\Interfaces\ReportRepositoryInterface::class);
+            $priorityService = app(\App\Services\ReportPriorityScoringService::class);
+            
+            // Test the priority scoring update that was failing
+            $result = $priorityService->updateReportPriorityScore(
+                $existingReport,
+                5, // category_score
+                4, // community_impact_score  
+                3, // damage_level_score
+                2, // time_urgency_score
+                'Test priority scoring update'
+            );
+            
+            // Refresh the report to get updated data
+            $existingReport->refresh();
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Report creation with priority scoring test completed',
+                'update_result' => $result,
+                'updated_report' => [
+                    'id' => $existingReport->id,
+                    'category_score' => $existingReport->category_score,
+                    'calculated_priority_score' => $existingReport->calculated_priority_score,
+                    'community_impact_score' => $existingReport->community_impact_score,
+                    'damage_level_score' => $existingReport->damage_level_score,
+                    'time_urgency_score' => $existingReport->time_urgency_score,
+                    'scoring_notes' => $existingReport->scoring_notes,
+                    'priority_calculated_at' => $existingReport->priority_calculated_at,
+                    'priority_level' => $existingReport->priority_level,
+                    'effective_priority_score' => $existingReport->effective_priority_score
+                ],
+                'error_resolved' => true
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'error_resolved' => false
+            ]);
+        }
+    })->name('test.report.creation')->middleware(['auth']);
+    
+    Route::get('/test-priority-scoring', function () {
+        try {
+            $service = app(\App\Services\ReportPriorityScoringService::class);
+            
+            // Test priority calculation
+            $testScore = $service->calculatePriorityScore(5, 4, 3, 2);
+            
+            // Test category scoring
+            $categoryScores = [
+                'keamanan' => $service->getCategoryScore('Keamanan dan Keselamatan Publik'),
+                'infrastruktur' => $service->getCategoryScore('Infrastruktur dan Fasilitas Umum'),
+                'administrasi' => $service->getCategoryScore('Administrasi dan Layanan Umum'),
+            ];
+            
+            // Test priority level determination
+            $priorityLevels = [
+                'high' => $service->getPriorityLevel(4.5),
+                'medium' => $service->getPriorityLevel(3.0),
+                'low' => $service->getPriorityLevel(2.0)
+            ];
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Priority scoring service test completed',
+                'test_calculation' => $testScore,
+                'category_scores' => $categoryScores,
+                'priority_levels' => $priorityLevels,
+                'weights' => $service->getWeights(),
+                'service_ready' => true
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+        }
+    })->name('test.priority.scoring')->middleware(['auth']);
+    
+    Route::get('/test-database-schema', function () {
+        try {
+            // Test if priority scoring columns exist
+            $report = \DB::table('reports')
+                ->select('id', 'category_score', 'calculated_priority_score', 'community_impact_score', 'damage_level_score', 'time_urgency_score')
+                ->first();
+                
+            $columns = \DB::getSchemaBuilder()->getColumnListing('reports');
+            $priorityColumns = ['category_score', 'calculated_priority_score', 'community_impact_score', 'damage_level_score', 'time_urgency_score', 'scoring_notes', 'priority_calculated_at'];
+            
+            $existingPriorityColumns = array_intersect($priorityColumns, $columns);
+            $missingColumns = array_diff($priorityColumns, $columns);
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Database schema test completed',
+                'all_columns' => $columns,
+                'priority_columns_exist' => $existingPriorityColumns,
+                'missing_columns' => $missingColumns,
+                'sample_report' => $report,
+                'schema_ready' => empty($missingColumns)
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+        }
+    })->name('test.database.schema')->middleware(['auth']);
+    
+    Route::get('/test-cache-busting', function () {
+        return response()->json([
+            'success' => true,
+            'timestamp' => now()->toISOString(),
+            'random' => rand(1000, 9999),
+            'message' => 'Cache busting is working! This data should be fresh on every request.',
+            'headers' => [
+                'cache_control' => request()->header('Cache-Control'),
+                'pragma' => request()->header('Pragma'),
+                'expires' => request()->header('Expires')
+            ]
+        ]);
+    })->name('test.cache.busting')->middleware(['auth', 'prevent.caching']);
+    
+    Route::get('/test-enhanced-priority', function () {
+        $service = app(\App\Services\ReportPriorityScoringService::class);
+        
+        $testResults = [
+            'category_5_others_3' => $service->calculatePriorityScore(5, 3, 3, 3), // Should be high due to category weight
+            'category_1_others_5' => $service->calculatePriorityScore(1, 5, 5, 5), // Lower due to low category
+            'balanced_high' => $service->calculatePriorityScore(4, 4, 4, 4),
+            'weights' => $service->getWeights(),
+            'category_auto_scoring' => [
+                'keamanan' => $service->getCategoryScore('keamanan'),
+                'infrastruktur' => $service->getCategoryScore('infrastruktur'),
+                'administrasi' => $service->getCategoryScore('administrasi'),
+            ]
+        ];
+        
+        return response()->json(['success' => true, 'enhanced_results' => $testResults]);
+    })->name('test.enhanced.priority');
 }
 use App\Http\Controllers\Admin\ReportCategoryController;
 use App\Http\Controllers\Admin\ReportController;
@@ -224,7 +507,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->midd
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register',[RegisterController::class, 'store'])->name('register.store');
 
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:Admin'])->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:Admin', 'prevent.caching'])->group(function () {
     route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     route::resource('/resident', ResidentController::class);
     route::resource('/report-category', ReportCategoryController::class);

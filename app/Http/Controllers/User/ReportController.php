@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreReportRequest;
 use App\Interfaces\ReportCategoryRepositoryInterface;
 use App\Interfaces\ReportRepositoryInterface;
+use App\Services\ReportPriorityScoringService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,11 +14,16 @@ class ReportController extends Controller
 {
     private ReportRepositoryInterface $reportRepository;
     private ReportCategoryRepositoryInterface $reportCategoryRepository;
+    private ReportPriorityScoringService $priorityScoringService;
 
-    public function __construct(ReportRepositoryInterface $reportRepository, ReportCategoryRepositoryInterface $reportCategoryRepository)
-    {
+    public function __construct(
+        ReportRepositoryInterface $reportRepository, 
+        ReportCategoryRepositoryInterface $reportCategoryRepository,
+        ReportPriorityScoringService $priorityScoringService
+    ) {
         $this->reportRepository = $reportRepository;
         $this->reportCategoryRepository = $reportCategoryRepository;
+        $this->priorityScoringService = $priorityScoringService;
     }
 
     public function index(Request $request)
@@ -77,7 +83,19 @@ class ReportController extends Controller
             $data['image'] = $request->file('image')->store('assets/report/image', 'public');
         }
 
-        $this->reportRepository->createReport($data);
+        $report = $this->reportRepository->createReport($data);
+        
+        // Handle priority scoring if provided by user
+        if ($request->filled(['community_impact_score', 'damage_level_score', 'time_urgency_score'])) {
+            $this->priorityScoringService->updateReportPriorityScore(
+                $report,
+                $request->category_score, // Can be null for auto-calculation based on category
+                $request->community_impact_score,
+                $request->damage_level_score,
+                $request->time_urgency_score,
+                'User-submitted priority scoring'
+            );
+        }
 
         return redirect()->route('report.success');
     }

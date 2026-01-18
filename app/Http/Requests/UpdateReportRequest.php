@@ -21,7 +21,14 @@ class UpdateReportRequest extends FormRequest
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
             'latitude' => 'required|string',
             'longitude' => 'required|string',
-            'address' => 'required|string'
+            'address' => 'required|string',
+            
+            // Optional priority scoring fields (for admin updates)
+            'category_score' => 'nullable|integer|min:1|max:5',
+            'community_impact_score' => 'nullable|integer|min:1|max:5',
+            'damage_level_score' => 'nullable|integer|min:1|max:5',
+            'time_urgency_score' => 'nullable|integer|min:1|max:5',
+            'scoring_notes' => 'nullable|string|max:1000'
         ];
     }
 }

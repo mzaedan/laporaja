@@ -1,0 +1,100 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" version="28.1.2">
+  <diagram name="Login Sequence" id="login-seq">
+    <mxGraphModel dx="1173" dy="667" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
+          <mxGeometry x="160" y="80" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="Register Page" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="270" y="100" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="Sistem" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="440" y="100" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="t8j3trdyT5wIvr9fYF2n-29" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="174.66" y="290" as="sourcePoint" />
+            <mxPoint x="175" y="760" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t8j3trdyT5wIvr9fYF2n-30" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" edge="1" parent="1" target="7">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="174.57999999999998" y="170" as="sourcePoint" />
+            <mxPoint x="175" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;" parent="1" vertex="1">
+          <mxGeometry x="170" y="190" width="10" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="t8j3trdyT5wIvr9fYF2n-33" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="180" y="210" as="sourcePoint" />
+            <mxPoint x="315" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t8j3trdyT5wIvr9fYF2n-34" value="1. Klik menu laporanmu" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="180" y="185" width="130" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t8j3trdyT5wIvr9fYF2n-35" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="205" height="300" relative="1" as="geometry">
+            <mxPoint x="320" y="140" as="sourcePoint" />
+            <mxPoint x="320" y="760" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t8j3trdyT5wIvr9fYF2n-37" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" edge="1" parent="1" source="t8j3trdyT5wIvr9fYF2n-39">
+          <mxGeometry width="205" height="490" relative="1" as="geometry">
+            <mxPoint x="499.65999999999997" y="140" as="sourcePoint" />
+            <mxPoint x="500" y="760" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t8j3trdyT5wIvr9fYF2n-42" value="2. Menampilkan halaman laporan" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="350" y="220" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t8j3trdyT5wIvr9fYF2n-39" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="495" y="210" width="10" height="390" as="geometry" />
+        </mxCell>
+        <mxCell id="t8j3trdyT5wIvr9fYF2n-77" value="" style="endArrow=none;dashed=1;html=1;rounded=0;entryX=0.479;entryY=-0.004;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1">
+          <mxGeometry width="275" height="600" relative="1" as="geometry">
+            <mxPoint x="499.65999999999997" y="140" as="sourcePoint" />
+            <mxPoint x="499.9200000000001" y="168.4000000000001" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t8j3trdyT5wIvr9fYF2n-78" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;" vertex="1" parent="t8j3trdyT5wIvr9fYF2n-77">
+          <mxGeometry x="315" y="190" width="10" height="395" as="geometry" />
+        </mxCell>
+        <mxCell id="t8j3trdyT5wIvr9fYF2n-82" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="500" y="210" as="sourcePoint" />
+            <mxPoint x="499.58000000000004" y="145" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t8j3trdyT5wIvr9fYF2n-84" value="" style="endArrow=classic;html=1;rounded=0;dashed=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="495" y="249.58" as="sourcePoint" />
+            <mxPoint x="325" y="249.58" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t8j3trdyT5wIvr9fYF2n-93" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="180" y="290" as="sourcePoint" />
+            <mxPoint x="315" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t8j3trdyT5wIvr9fYF2n-94" value="3. Pengguna dapat memilih berdasarkan status laporan" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="175" y="260" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t8j3trdyT5wIvr9fYF2n-95" value="" style="endArrow=classic;html=1;rounded=0;dashed=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="495" y="340" as="sourcePoint" />
+            <mxPoint x="325" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t8j3trdyT5wIvr9fYF2n-96" value="4. Menampilkan halaman form laporan berdasarkan status" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="350" y="300" width="120" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

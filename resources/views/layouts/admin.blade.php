@@ -14,6 +14,11 @@
     @auth
     <meta name="user-id" content="{{ Auth::id() }}">
     @endauth
+    
+    <!-- Prevent Browser Caching for Fresh Data -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
 
     <title>@yield('title')</title>
 
@@ -114,6 +119,51 @@
     @endenv
     
     @vite(['resources/js/pusher.js'])
+    
+    <!-- Fresh Data Navigation Script -->
+    <script>
+        // Ensure fresh data on page navigation
+        $(document).ready(function() {
+            // Force reload on navigation links to prevent cached data
+            $('.nav-link, .collapse-item, .btn[href], a[href*="admin"]').not('[data-toggle]').on('click', function(e) {
+                const href = $(this).attr('href');
+                if (href && href.indexOf('#') !== 0 && !$(this).hasClass('no-refresh')) {
+                    // Add timestamp parameter to force fresh request
+                    const separator = href.indexOf('?') > -1 ? '&' : '?';
+                    const freshUrl = href + separator + '_t=' + Date.now();
+                    $(this).attr('href', freshUrl);
+                }
+            });
+            
+            // Add visual indicator when loading fresh data
+            $(document).on('click', 'a[href*="admin"]:not([data-toggle]):not(.no-refresh)', function() {
+                if (!$(this).hasClass('btn-danger') && !$(this).hasClass('btn-warning')) {
+                    $(this).append(' <i class="fas fa-sync fa-spin" style="font-size: 0.8em; margin-left: 5px;"></i>');
+                }
+            });
+        });
+        
+        // Force refresh on browser back/forward navigation
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted || window.performance && window.performance.navigation.type === 2) {
+                // Page was loaded from cache, force refresh
+                location.reload(true);
+            }
+        });
+        
+        // Add cache-busting headers to AJAX requests
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (settings.url.indexOf('_t=') === -1) {
+                    const separator = settings.url.indexOf('?') > -1 ? '&' : '?';
+                    settings.url = settings.url + separator + '_t=' + Date.now();
+                }
+                xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+                xhr.setRequestHeader('Pragma', 'no-cache');
+                xhr.setRequestHeader('Expires', '0');
+            }
+        });
+    </script>
 
     @yield('scripts')
 
